@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AK TATTOO | Kevin Harden | Anchorage, Alaska</title>
+    <meta name="description" content="AK Tattoo - Custom tattoo studio at 409 W. Northern Lights Blvd, Anchorage AK 99503. Tattoo Artist Kevin Harden has 34+ years experience. Traditional, Neo-Traditional, Bio-Organica, Floral, Custom, Sleeves, Walk-Ins Welcome. Call (907) 365-9410.">
+    <meta name="keywords" content="tattoo shops anchorage, tattoo artist anchorage alaska, walk in tattoo anchorage, custom tattoo anchorage, AK tattoo, Kevin Harden tattoo, neo traditional tattoo alaska, bio organica tattoo, tattoo near me anchorage, anchorage tattoo shops, same day tattoo anchorage">
+    <link rel="canonical" href="https://aktattoo.ink/">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --orange: #FF6600;
+            --orange-dim: #cc5200;
+            --black: #000;
+            --off-black: #0d0d0d;
+            --white: #ffffff;
+            --gray: #999;
+            --light: #cccccc;
+            --border: #1c1c1c;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        a:hover { color: var(--orange); }
+
+        /* ── STICKY TOP NAV ── */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 999;
+            background: var(--black);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 40px;
+        }
+
+        .nav-logo img {
+            height: 52px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-phone {
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--orange);
+        }
+
+        .nav-cta {
+            background: var(--orange);
+            color: #000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 11px 22px;
+            display: inline-block;
+            transition: background 0.2s;
+            border-radius: 50px;
+        }
+
+        .nav-cta:hover { background: var(--orange-dim); color: #000; }
+
+        .page-body { padding-top: 80px; }
+
+        /* ── CONTACT BLOCK ── */
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 90vh;
+            min-height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.62);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-content img {
+            height: 200px;
+            margin-bottom: 24px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-content h1 {
+            font-size: 1rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .hero-content p {
+            font-size: 0.82rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 26px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 50px;
+        }
+
+        .btn-hero-primary {
+            background: var(--orange);
+            color: #000;
+            border: none;
+        }
+
+        .btn-hero-primary:hover { background: var(--orange-dim); color: #000; }
+
+        .btn-hero-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .btn-hero-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+        @media (max-width: 600px) {
+            .hero { height: 100vh; }
+            .hero-content img { height: 140px; }
+            .hero-content h1 { font-size: 0.85rem; letter-spacing: 0.2em; }
+        }
+
+        .contact-block {
+            border-bottom: 1px solid var(--border);
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-col h3 {
+            font-size: 0.68rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        .contact-col p, .contact-col a {
+            font-size: 0.88rem;
+            color: var(--light);
+            line-height: 2;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        .contact-col a:hover { color: var(--orange); }
+
+        .contact-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 26px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 50px;
+        }
+
+        .btn:hover { text-decoration: none; }
+
+        .btn-primary { background: var(--orange); color: #000; }
+        .btn-primary:hover { background: var(--orange-dim); color: #000; }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+        .btn-blue { background: #4db8d4; color: #000; border: none; }
+        .btn-blue:hover { background: #33a8c4; color: #000; }
+
+        .btn-orange { background: var(--orange); color: #000; border: none; }
+        .btn-orange:hover { background: var(--orange-dim); color: #000; }
+
+        .btn-book-img {
+            display: block;
+            max-width: 300px;
+            margin: 0 auto;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn-book-img:hover { transform: scale(1.04); opacity: 0.9; }
+        .btn-book-img img { width: 100%; display: block; }
+
+        hr.divider { border: none; border-top: 1px solid var(--border); }
+
+        .section-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* ── ARTIST SECTION ── */
+        .artist-section {
+            padding: 80px 40px;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .artist-photo {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            display: block;
+            background: #111;
+        }
+
+        .artist-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .artist-photo:hover img { transform: scale(1.03); }
+
+        .artist-name {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--orange);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .artist-title {
+            font-size: 0.72rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 28px;
+        }
+
+        .artist-bio {
+            font-size: 0.95rem;
+            color: var(--light);
+            line-height: 1.85;
+            margin-bottom: 28px;
+        }
+
+        .artist-specialties h4 {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 12px;
+        }
+
+        .specialties-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .specialty {
+            font-size: 0.75rem;
+            color: var(--gray);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            padding: 5px 12px;
+        }
+
+        /* ── GALLERY ── */
+        .gallery-section { border-bottom: 1px solid var(--border); }
+
+        .gallery-header {
+            padding: 50px 40px 28px;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .gallery-header h2 {
+            font-size: 0.68rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        /* ── LIGHTBOX ── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #lb-img {
+            max-width: 90vw;
+            max-height: 82vh;
+            object-fit: contain;
+            display: block;
+            border: 1px solid #222;
+        }
+        #lb-close {
+            position: fixed;
+            top: 18px; right: 28px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2.4rem;
+            cursor: pointer;
+            line-height: 1;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        #lb-close:hover { opacity: 1; }
+        #lb-prev, #lb-next {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            padding: 0 20px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            user-select: none;
+        }
+        #lb-prev { left: 10px; }
+        #lb-next { right: 10px; }
+        #lb-prev:hover, #lb-next:hover { opacity: 1; color: var(--orange); }
+        #lb-counter {
+            margin-top: 14px;
+            font-size: 0.78rem;
+            letter-spacing: 0.15em;
+            color: var(--gray);
+            text-transform: uppercase;
+        }
+        #lb-caption {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #888;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            background: #111;
+            display: block;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .gallery-item:hover img { transform: scale(1.06); }
+
+        /* ── REVIEWS ── */
+        .reviews-section {
+            padding: 80px 40px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .reviews-cta-block {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reviews-cta-block p {
+            font-size: 0.9rem;
+            color: var(--light);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .review-badge img {
+            height: 60px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 50px auto 0;
+            text-align: left;
+        }
+
+        .review-card {
+            background: var(--off-black);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px;
+        }
+
+        .review-card .rc-stars {
+            color: var(--orange);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .review-card .rc-text {
+            font-size: 0.88rem;
+            color: var(--light);
+            line-height: 1.7;
+            margin-bottom: 14px;
+        }
+
+        .review-card .rc-name {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        @media (max-width: 900px) {
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 560px) {
+            .reviews-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── FAQ ── */
+        .faq-section {
+            padding: 80px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-inner { max-width: 860px; margin: 0 auto; }
+
+        .faq-title {
+            font-size: 0.68rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .faq-item { border-bottom: 1px solid var(--border); }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 0;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .faq-question:hover { color: var(--orange); }
+
+        .faq-toggle {
+            font-size: 1.4rem;
+            color: var(--orange);
+            flex-shrink: 0;
+            margin-left: 20px;
+            line-height: 1;
+            transition: transform 0.25s;
+            font-weight: 300;
+        }
+
+        .faq-answer {
+            display: none;
+            font-size: 0.88rem;
+            color: var(--light);
+            line-height: 1.85;
+            padding: 0 0 22px;
+        }
+
+        .faq-answer a { color: var(--orange); }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-item.open .faq-toggle { transform: rotate(45deg); }
+        .faq-item.open .faq-question { color: var(--orange); }
+
+        /* ── LOCATION + MAP ── */
+        .location-section {
+            padding: 80px 40px;
+            border-bottom: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .location-info h2 {
+            font-size: 0.68rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 28px;
+        }
+
+        .location-info p {
+            font-size: 0.9rem;
+            color: var(--light);
+            line-height: 2.3;
+            margin-bottom: 28px;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 380px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            filter: grayscale(80%) invert(90%);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            border-top: 1px solid var(--border);
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        footer h4 {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        footer p, footer a {
+            font-size: 0.82rem;
+            color: var(--gray);
+            line-height: 2.2;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--orange); }
+
+        /* ── MOBILE ── */
+        @media (max-width: 900px) {
+            .top-nav { padding: 12px 20px; }
+            .nav-phone { display: none; }
+            .contact-block { grid-template-columns: 1fr; padding: 40px 20px; }
+            .artist-section { grid-template-columns: 1fr; padding: 50px 20px; gap: 40px; }
+            .artist-name { font-size: 2rem; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-header { padding: 40px 20px 20px; }
+            .reviews-section { padding: 50px 20px; }
+            .faq-section { padding: 50px 20px; }
+            .location-section { grid-template-columns: 1fr; padding: 50px 20px; gap: 40px; }
+            footer { grid-template-columns: 1fr 1fr; padding: 40px 20px; gap: 30px; }
+        }
+
+        @media (max-width: 500px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            footer { grid-template-columns: 1fr; }
+            .nav-logo img { height: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── STICKY NAV ── -->
+<nav class="top-nav">
+    <a class="nav-logo" href="#top">
+        <img src="AK.TATTOO.Banner.png" alt="AK Tattoo Anchorage Alaska">
+    </a>
+    <div class="nav-right">
+        <span class="nav-phone">(907) 365-9410</span>
+        <a href="contact.html" class="nav-cta">Book Now!</a>
+    </div>
+</nav>
+
+<div class="page-body" id="top">
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto">
+            <source src="hero.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <img src="AKT.LOGO.Web.png" alt="AK Tattoo Anchorage Alaska">
+            <h1>Custom Tattoo Art · Anchorage, Alaska</h1>
+            <p>Kevin Harden · 34+ Years · Walk-Ins Welcome</p>
+            <div class="hero-btns">
+                <a href="contact.html" class="btn btn-hero-primary">Don't Wait</a>
+                <a href="tel:9073659410" class="btn btn-hero-outline">Call (907) 365-9410</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CONTACT BLOCK ── -->
+    <section class="contact-block" id="contact">
+        <div class="contact-col">
+            <h3>Location</h3>
+            <p>
+                409 W. Northern Lights Blvd. #2<br>
+                Anchorage, Alaska 99503<br>
+                "In the Heart of Anchorage"
+            </p>
+        </div>
+
+        <div class="contact-col">
+            <h3>Hours of Operation</h3>
+            <p>
+                Monday – Saturday: 12:00 PM – 6:00 PM<br>
+                Earlier &amp; later hours available by appointment<br>
+                Closed Sunday<br><br>
+                Walk-Ins Welcome · Same-Day Tattoos Available
+            </p>
+        </div>
+
+        <div class="contact-col">
+            <h3>Contact Us</h3>
+            <a href="tel:9073659410">(907) 365-9410 — Call or Text</a>
+            <a href="contact.html">kevin@aktattoo.ink</a>
+            <div class="contact-btns">
+                <a href="contact.html" target="_blank" class="btn btn-primary" style="color:#000;">Tell Kevin Your Idea</a>
+                <a href="tel:9073659410" class="btn btn-blue" style="color:#000;">Call / Text Now</a>
+                <a href="https://g.page/r/CZBzZ1zOdFbaEAE/review" class="btn btn-orange" target="_blank" style="color:#000;">⭐ Leave a 5-Star Review</a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── ARTIST : KEVIN HARDEN ── -->
+    <section class="artist-section" id="about">
+
+        <div>
+            <a class="artist-photo" href="#gallery">
+                <img src="KEVIN.SEPIA_Alaska.tattoo.AKTATTOO.anchorage.studio.webp"
+                     alt="Kevin Harden Tattoo Artist AK Tattoo Anchorage Alaska">
+            </a>
+
+            <div class="artist-specialties" style="margin-top: 28px;">
+                <h4>Specializes In</h4>
+                <div class="specialties-list">
+                    <span class="specialty">Biomech</span>
+                    <span class="specialty">Biomechanical</span>
+                    <span class="specialty">Bio-Organica</span>
+                    <span class="specialty">Nature Inspired</span>
+                    <span class="specialty">Surreal</span>
+                    <span class="specialty">Texture</span>
+                    <span class="specialty">Mushrooms</span>
+                    <span class="specialty">Driftwood</span>
+                    <span class="specialty">Aquatic</span>
+                    <span class="specialty">Bugs</span>
+                    <span class="specialty">Seashells</span>
+                    <span class="specialty">Neo-Traditional</span>
+                    <span class="specialty">Mucha Art Nouveau</span>
+                    <span class="specialty">Illustrative</span>
+                    <span class="specialty">Floral</span>
+                    <span class="specialty">Walk-Ins</span>
+                    <span class="specialty">Sleeves</span>
+                    <span class="specialty">Tiny Tattoos</span>
+                    <span class="specialty">Custom</span>
+                    <span class="specialty">Traditional</span>
+                    <span class="specialty">New School</span>
+                    <span class="specialty">Lettering</span>
+                    <span class="specialty">Large Scale</span>
+                    <span class="specialty">Mountains &amp; Trees</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="artist-info">
+            <div class="artist-name">Kevin Harden</div>
+            <div class="artist-title">Owner · Tattoo Artist · Anchorage, Alaska · Since 1992</div>
+
+            <p class="artist-bio">
+                Growing up, Kevin was always drawing — took every art class in school. Raised on Saturday morning cartoons, Mad Magazine, comic books, Big Daddy Ed Roth model kits, Star Wars &amp; cheesy low budget 80's movies.
+                <br><br>
+                <strong style="color:var(--orange); font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;">Favorite Artists</strong><br>
+                Arthur Adams, Alphonse Mucha, Moebius, Frank Frazetta, Bill Sienkiewicz, William Stout, Skottie Young, Joe Mad, Dale Keown, Berni Wrightson, Giger, Johfra Bosschart
+                <br><br>
+                <strong style="color:var(--orange); font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;">Favorite Tattoo Artists</strong><br>
+                Filip Leu, Tim Biedron, Aaron Cain, Guy Aitchison, Grime, Patrick Conlon, James Tex, Steve Moore, Kaija Heitland, Markus Lenhard
+                <br><br>
+                Kevin started his tattoo journey January 1992, apprenticing under Temple Drake @ Tattoo Technique in Bremerton, Washington. Over 34 years later, he's still at it — and still loves every minute.
+                <br><br>
+                Kevin specializes in Bio-Organica (his signature Organic Mech style), and surreal nature-based imagery. Biomechanical. Neo-Traditional. His technique is heavily influenced by Alphonse Mucha and the Art Nouveau movement.
+                <br><br>
+                AK Tattoo is not your average shop. Walk in and you'll find original paintings, sculptures, and one-of-a-kind custom tattoo designs covering the walls. This is an artist's studio — Kevin's clients have included Nikki Sixx of Mötley Crüe and Mike Herrera, lead singer of MxPx.
+            </p>
+
+            <img src="AKT.LOGO.Web.png" alt="AK Tattoo Logo Anchorage Alaska" style="width: 320px; margin-top: 28px; display: block;">
+        </div>
+
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── GALLERY ── -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-header">
+            <h2>Portfolio</h2>
+            <a href="contact.html" class="btn btn-orange" style="padding:9px 18px;">Reserve Your Spot</a>
+        </div>
+
+        <div class="gallery-grid" id="gallery-tattoos">
+            <a class="gallery-item" href="001_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="001_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Black Grey Butterfly Floral Half Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="002_Cady.Flowr3.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="002_Cady.Flowr3.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Color Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="003_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="003_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Poppy Floral Shoulder Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="004_MEMORIAL.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="004_MEMORIAL.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Memorial Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="005_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="005_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica DMT Full Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="006_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="006_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica Cthulhu Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="007_Bio.Crystal.Leg.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="007_Bio.Crystal.Leg.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio Crystal Leg Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="008_Black-Grey-Seahorse-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="008_Black-Grey-Seahorse-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Seahorse Forearm Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="009_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="009_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Alaska Wild Rose Pine Cone Floral Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0010_KILA.SALMON.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0010_KILA.SALMON.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Alaska Salmon Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0011_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" target="_blank">
+                <img src="0011_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" alt="Color Fish Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0012_TUCKER.Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0012_TUCKER.Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Color Salmon Fish Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0013_Tribal.tattoo.anchorage.alaska.aktattoo.kevin.harden.Mark.jpg" target="_blank">
+                <img src="0013_Tribal.tattoo.anchorage.alaska.aktattoo.kevin.harden.Mark.jpg" alt="Tribal Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0014_Neo-Traditional-Pink-Magnolia-Floral-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="0014_Neo-Traditional-Pink-Magnolia-Floral-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Neo Traditional Pink Magnolia Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0015_Logan_Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0015_Logan_Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Alaska Salmon Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0016_Sean.M.Octo.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0016_Sean.M.Octo.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Octopus Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0017_Queen.of.Hearts.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0017_Queen.of.Hearts.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Queen of Hearts Neo-Traditional Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0018_Color-Double-Tiger-Skull-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.png" target="_blank">
+                <img src="0018_Color-Double-Tiger-Skull-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.png" alt="Color Double Tiger Skull Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0019_bio.knee.gator.snake.bear.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0019_bio.knee.gator.snake.bear.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica Knee Gator Snake Bear Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0020_KEN.BIOSHIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0020_KEN.BIOSHIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica Shin Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0021_LOGAN_Rage.City.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0021_LOGAN_Rage.City.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Rage City Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0022_USN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0022_USN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="USN Military Navy Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0023_Full-Back-Japanese-Dragon-Snake-Color-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="0023_Full-Back-Japanese-Dragon-Snake-Color-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Full Back Japanese Dragon Snake Color Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0024_WOODGRAIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0024_WOODGRAIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Woodgrain Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0025_Black-Grey-Lighthouse-Skull-Ocean-Waves-Sleeve-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="0025_Black-Grey-Lighthouse-Skull-Ocean-Waves-Sleeve-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Lighthouse Skull Ocean Waves Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0026_Winter.Cabin.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="0026_Winter.Cabin.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Winter Cabin Alaska Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0027_Black-Grey-Rose-Butterfly-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="0027_Black-Grey-Rose-Butterfly-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Rose Butterfly Forearm Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0028_Alaska.tattoo.AKTATTOO.anchorage.studio.bug.jpg" target="_blank">
+                <img src="0028_Alaska.tattoo.AKTATTOO.anchorage.studio.bug.jpg" alt="Bug Insect Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0029_AKTATTOO_Anchorage_Alaska_Color-Mystical-Eye-Seashell-Wrist-7.jpg" target="_blank">
+                <img src="0029_AKTATTOO_Anchorage_Alaska_Color-Mystical-Eye-Seashell-Wrist-7.jpg" alt="Color Mystical Eye Seashell Wrist Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="0030_AKTATTOO_Anchorage_Alaska_Color-Sacred-Scarab-Beetle-Calf.jpg" target="_blank">
+                <img src="0030_AKTATTOO_Anchorage_Alaska_Color-Sacred-Scarab-Beetle-Calf.jpg" alt="Color Sacred Scarab Beetle Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── ARTWORK GALLERY ── -->
+    <section class="gallery-section" id="artwork">
+        <span class="section-label">Original Artwork</span>
+        <h2 class="section-heading">Art by Kevin Harden</h2>
+        <p style="text-align:center; color:var(--gray); font-size:0.9rem; max-width:600px; margin:0 auto 20px;">Kevin's original tattoo pre-drawn designs are available — labors of love looking for a new home.</p>
+        <div class="gallery-grid" id="gallery-artwork">
+            <a class="gallery-item" href="000A_AKT_LOGO_Web.png" target="_blank">
+                <img src="000A_AKT_LOGO_Web.png" alt="AK Tattoo Logo Artwork Kevin Harden Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="000_ART.LINK-Alaska.tattoo.AKTATTOO.anchorage.studioB.webp" target="_blank">
+                <img src="000_ART.LINK-Alaska.tattoo.AKTATTOO.anchorage.studioB.webp" alt="Original Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="aktattoo.kevinharden.alaska.anchorage.studio.biomechanical_kevin_Harden.jpg" target="_blank">
+                <img src="aktattoo.kevinharden.alaska.anchorage.studio.biomechanical_kevin_Harden.jpg" alt="Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="aktattoo.kevinharden.alaska.anchorage.studio.shop_neotraditional_biomechanical.jpg" target="_blank">
+                <img src="aktattoo.kevinharden.alaska.anchorage.studio.shop_neotraditional_biomechanical.jpg" alt="Neo-Traditional Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="aktattoo.kevinharden.alaska.anchorage.biomechanical_mushroom.jpg" target="_blank">
+                <img src="aktattoo.kevinharden.alaska.anchorage.biomechanical_mushroom.jpg" alt="Biomechanical Mushroom Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" target="_blank">
+                <img src="aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" alt="DMT Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="Biomechanical_Bio.Sleeve_aktattoo_anchorage_alaksa.jpg" target="_blank">
+                <img src="Biomechanical_Bio.Sleeve_aktattoo_anchorage_alaksa.jpg" alt="Biomechanical Bio Sleeve Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="007_Organica.06.jpg" target="_blank">
+                <img src="007_Organica.06.jpg" alt="Bio-Organica Original Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="008_AKTATTOO.Star.Sticker.png" target="_blank">
+                <img src="008_AKTATTOO.Star.Sticker.png" alt="AK Tattoo Star Sticker Design Kevin Harden Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="009_AKT_ArrowHead.png" target="_blank">
+                <img src="009_AKT_ArrowHead.png" alt="AK Tattoo Arrowhead Design Kevin Harden Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="009A_AKTATTOO_Skull.png" target="_blank">
+                <img src="009A_AKTATTOO_Skull.png" alt="AK Tattoo Skull Artwork Kevin Harden Anchorage Alaska" loading="lazy">
+            </a>
+        </div>
+    </section>
+
+    <!-- ── CADE BENNETT BANNER ── -->
+    <section style="padding: 40px 20px; text-align: center; background: #0a0a0a;">
+        <a href="https://cadebennett.ink/" target="_blank" rel="noopener">
+            <img src="Cade_Bennett_aktattoo_anchorage_alaska_tattoo_link.jpg" alt="Cade Bennett Tattoo Artist Anchorage Alaska" style="max-width:100%; border-radius:8px; display:block; margin:0 auto;">
+        </a>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── REVIEWS ── -->
+    <section class="reviews-section" id="reviews">
+        <span class="section-label">Google Reviews · 4.8 ★★★★★</span>
+
+        <div class="reviews-cta-block">
+            <div style="font-size: 2.4rem; letter-spacing: 6px; color: var(--orange); margin-bottom: 8px;">★★★★★</div>
+            <div style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 20px;">Rated 4.8 · Google Reviews</div>
+            <p>
+                AK Tattoo has a 4.8 star rating on Google — 38 reviews.<br>
+                If you've been tattooed by Kevin, we'd love to hear from you.
+            </p>
+            <a href="https://g.page/r/CZBzZ1zOdFbaEAE/review" class="btn btn-orange" target="_blank" style="display:inline-block; margin-bottom: 40px;">
+                ⭐ &nbsp;Leave a 5-Star Google Review
+            </a>
+            <div style="margin-top: 10px;">
+                <p style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 16px;">Or scan to leave a review</p>
+                <a href="https://g.page/r/CZBzZ1zOdFbaEAE/review" target="_blank">
+                    <img src="Google-Review-QR-Code.png" alt="AK Tattoo Google Review QR Code Anchorage Alaska" style="width: 160px; height: 160px; display: block; margin: 0 auto; border: 4px solid #1c1c1c;">
+                </a>
+            </div>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"I found Kevin several years ago after calling many shops. No one was willing to do the simple tattoos I wanted. Kevin was amazing and got me in quick. I have since added 12 additional tattoos all done by him. He is a wealth of knowledge and I highly recommend him to anyone seeking a tattoo that they want to be proud to show off!"</p>
+                <div class="rc-name">Mandi Priebe</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"This is my second time working with Kevin and he went above and beyond what I originally envisioned. He professionally helped me weigh the pros and cons of my idea and was able to draw up a beautiful and timeless design that will age well."</p>
+                <div class="rc-name">Marika Reiser</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"Kevin was absolutely AWESOME. He understood my concept and designed my tattoo better than I could ever have imagined. Professional, clean, caring. And Caden was gracious and kind."</p>
+                <div class="rc-name">Tammie Franta</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"Kevin Harden is an incredible artist who's obviously mastered his craft! He's friendly and professional, and has created a very comfortable atmosphere. He's always quick to respond and easy to communicate with."</p>
+                <div class="rc-name">Leah Reynolds</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"Kevin got me in as a last minute walk-in but he treated me like I was a long-time customer. He had my tattoo stenciled and ready to go when I got there. The studio was very clean and staff was extremely helpful. I will definitely go back again."</p>
+                <div class="rc-name">Laticia Swift</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"Kevin and Cade were both awesome! Very professional and both did incredible work — highly recommend!!!"</p>
+                <div class="rc-name">May Moreland</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"He's been tattooing for decades and listens to what you want. His knowledge of the art and healing process is top notch. One of my favorite things is an artist that cares about your future with the placement of tattoos. Kevin is a straight shooter with awesome talent!"</p>
+                <div class="rc-name">Jeff Harden</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"Absolutely wonderful! Will get all my future tattoos with Kevin. He has excellent bedside manner, drew up an excellent design, and took great care to make the experience a good one. Highly, HIGHLY recommend."</p>
+                <div class="rc-name">Kassidy Day</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"Kevin did an awesome job with my tattoo. He took what I requested, turned it into reality, and it came out better than I imagined. Clean lines and great design. Highly recommend!!"</p>
+                <div class="rc-name">Bryan C</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"The time he took to help me create my new tattoo made me feel comfortable and appreciative. During my tattoo sessions we had great conversations. Kevin Harden is an awesome artist with a fantastic imagination."</p>
+                <div class="rc-name">Hashi Nelson</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"He did an amazing job and made the environment very comfortable. Everything was very clean and his lines are clean. My tattoo has healed up awesome. I highly recommend him — he responds! He will make you laugh through the pain."</p>
+                <div class="rc-name">Nikki Beckham</div>
+            </div>
+            <div class="review-card">
+                <div class="rc-stars">★★★★★</div>
+                <p class="rc-text">"I had a pretty incredible tattoo experience with Kevin. He very patiently and expertly helped me realize my personal mandala tattoo — and then that same day did the tattoo. I couldn't believe how fast and well it went."</p>
+                <div class="rc-name">Carlyn Walker</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── YELP REVIEWS ── -->
+    <section style="padding: 50px 40px; text-align: center; border-bottom: 1px solid var(--border);">
+        <a href="https://www.yelp.com/writeareview/biz/jc7x3Z_QZRfJ6Aa9wjqwbA?return_url=%2Fbiz%2Fjc7x3Z_QZRfJ6Aa9wjqwbA&review_origin=biz-details-war-button" target="_blank" rel="noopener">
+            <img src="AKTATTOO_YELP_REVIEWS.png" alt="AK Tattoo Yelp Reviews Anchorage Alaska" style="max-width: 280px; display: block; margin: 0 auto;">
+        </a>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── FAQ ── -->
+    <section class="faq-section" id="faq">
+        <div class="faq-inner">
+            <span class="faq-title">Frequently Asked Questions</span>
+
+            <div class="faq-item">
+                <div class="faq-question">How much does a tattoo cost? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Pricing depends on size, placement, and complexity. Smaller pieces typically start around $75–$150. To get an honest estimate, come into the studio so we can go over all the details and get a full understanding of your needs and budget.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do you accept walk-ins? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Yes — walk-ins are welcome. Come by 409 W. Northern Lights Blvd, Suite 2, Anchorage, AK 99503. For larger custom pieces, booking an appointment is recommended. Fill out the Contact/Tattoo Info Form on the front page.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How should I prepare for my tattoo? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Eat a full meal within 2 hours beforehand. Stay hydrated the day before and day of. Wear clothing that gives easy access to the area being tattooed. Skip alcohol for 24+ hours — it thins the blood. Get good sleep.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What is the aftercare process? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Keep the wrap on for 4–12 hours. Wash gently with unscented soap and pat dry. Moisturize with Aquaphor or unscented lotion 2–3 times daily for 2 weeks. Stay out of pools and hot tubs for 2–3 weeks. Avoid direct sun while healing. Don't pick or scratch — let it flake naturally. Full healing takes about 4 weeks.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What styles does Kevin specialize in? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer"><strong>Neo-Traditional:</strong> Bold linework, rich color, built to age well.<br><br><strong>Bio-Organica:</strong> Kevin's organic collage style — bones, skulls, sea life, shells, wood, and natural textures that flow with the body.<br><br>Everything is drawn specifically for you — small pieces to full back projects. Kevin also has a wall full of designs and several books of his own original artwork, typically offered at a slight discount. Come hang out and look at the artwork.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">How do I book an appointment? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Call <a href="tel:9073659410">(907) 365-9410</a> or stop by 409 W. Northern Lights Blvd, Suite 2, Anchorage, AK 99503. Walk-ins are welcome. For custom or large-scale projects, fill out the <a href="contact.html" target="_blank">Contact Info Form</a>.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Does getting a tattoo hurt? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Yes, to varying degrees — but very manageable. Pain depends on placement and personal tolerance. Areas over bone (ribs, spine) are more intense. Fleshy areas like the upper arm are more comfortable. Being well-rested, hydrated, and fed makes a big difference.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is AK Tattoo clean and safe? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Absolutely. AK Tattoo uses single-use sterile needles and follows industry-standard sanitation protocols. Clean, professional, relaxed — no chaos, no pressure.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Where are you located? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">409 W. Northern Lights Blvd, Suite 2, Anchorage, AK 99503 — Northern Lights and C Street, just past the Wells Fargo building on the right. Call <a href="tel:9073659410">(907) 365-9410</a> for hours and directions, or find us on Instagram at <a href="https://www.instagram.com/aktattoo907/" target="_blank">@aktattoo907</a>.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can I get a cover-up tattoo? <span class="faq-toggle">+</span></div>
+                <div class="faq-answer">Yes. Kevin has extensive experience with cover-ups. The new piece typically needs to be larger and darker than the original. Call <a href="tel:9073659410">(907) 365-9410</a> to schedule a cover-up consultation.</div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── LOCATION + MAP ── -->
+    <section class="location-section" id="location">
+        <div class="location-info">
+            <h2>Location</h2>
+            <p>
+                AK Tattoo<br>
+                409 W. Northern Lights Blvd. #2<br>
+                Anchorage, Alaska 99503<br><br>
+                <a href="tel:9073659410" style="color:var(--orange);">(907) 365-9410</a><br><br>
+                Serving Anchorage · Eagle River<br>
+                Wasilla · Palmer · Girdwood
+            </p>
+            <a href="https://www.google.com/maps/place/AK+TATTOO+:+Tattoo+Artist+:+Anchorage+Alaska/@61.1954949,-149.8907003,17z" class="btn btn-outline" target="_blank" style="display:inline-block;">Get Directions</a>
+        </div>
+
+        <div class="map-frame">
+            <iframe
+                src="https://maps.google.com/maps?q=61.1954949,-149.8907003&z=16&output=embed"
+                allowfullscreen loading="lazy"
+                title="AK Tattoo location Anchorage Alaska">
+            </iframe>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div>
+            <div class="footer-logo">
+                <img src="AKT.LOGO.Web.png" alt="AK Tattoo Logo Anchorage Alaska">
+            </div>
+            <p style="color:var(--gray); font-size:0.8rem;">Kevin Harden<br>Tattoo Artist Since 1992</p>
+        </div>
+
+        <div>
+            <h4>Location</h4>
+            <p>409 W. Northern Lights Blvd. #2<br>Anchorage, Alaska 99503</p>
+        </div>
+
+        <div>
+            <h4>Contact</h4>
+            <a href="tel:9073659410">(907) 365-9410</a>
+            <a href="contact.html">kevin@aktattoo.ink</a>
+            <a href="contact.html" target="_blank">Book Now!</a>
+            <a href="https://g.page/r/CZBzZ1zOdFbaEAE/review" target="_blank">⭐ Leave a Review</a>
+        </div>
+
+        <div>
+            <h4>Follow</h4>
+            <a href="https://www.instagram.com/kevinharden25/" target="_blank" rel="noopener">Instagram @kevinharden25</a>
+            <a href="https://www.instagram.com/aktattoo907/" target="_blank" rel="noopener">Instagram @aktattoo907</a>
+            <a href="https://www.instagram.com/cade_tattooing_alaska/" target="_blank" rel="noopener">Instagram @cade_tattooing_alaska</a>
+            <a href="https://www.facebook.com/KevinHarden.Net" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://www.youtube.com/@AKTattoo907/videos" target="_blank" rel="noopener">YouTube @AKTattoo907</a>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox" style="display:none;">
+    <button id="lb-close">&#215;</button>
+    <button id="lb-prev">&#8249;</button>
+    <img id="lb-img" src="" alt="">
+    <div id="lb-counter"></div>
+    <div id="lb-caption"></div>
+    <button id="lb-next">&#8250;</button>
+</div>
+
+<script>
+    // ── FAQ accordion ──
+    document.querySelectorAll('.faq-question').forEach(function(q) {
+        q.addEventListener('click', function() {
+            var item = q.parentElement;
+            var wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+
+    // ── Lightbox ──
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lb-img');
+    var lbCounter = document.getElementById('lb-counter');
+    var lbCaption = document.getElementById('lb-caption');
+    var currentImages = [];
+    var currentIndex = 0;
+
+    function buildGalleryList(gridId) {
+        var items = [];
+        document.querySelectorAll('#' + gridId + ' .gallery-item').forEach(function(a) {
+            items.push({ src: a.getAttribute('href'), alt: a.querySelector('img').getAttribute('alt') });
+        });
+        return items;
+    }
+
+    function openLightbox(images, index) {
+        currentImages = images;
+        currentIndex = index;
+        showImage();
+        lb.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lb.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    function showImage() {
+        var item = currentImages[currentIndex];
+        lbImg.src = item.src;
+        lbImg.alt = item.alt;
+        lbCounter.textContent = (currentIndex + 1) + ' / ' + currentImages.length;
+        lbCaption.textContent = item.alt;
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        showImage();
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        showImage();
+    }
+
+    // Wire up both galleries
+    ['gallery-tattoos', 'gallery-artwork'].forEach(function(gridId) {
+        var grid = document.getElementById(gridId);
+        if (!grid) return;
+        var images = buildGalleryList(gridId);
+        grid.querySelectorAll('.gallery-item').forEach(function(a, i) {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                openLightbox(images, i);
+            });
+        });
+    });
+
+    document.getElementById('lb-close').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', prevImage);
+    document.getElementById('lb-next').addEventListener('click', nextImage);
+
+    // Close on backdrop click
+    lb.addEventListener('click', function(e) {
+        if (e.target === lb) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (lb.style.display === 'none') return;
+        if (e.key === 'ArrowLeft')  prevImage();
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'Escape')     closeLightbox();
+    });
+
+</script>
+
+</body>
+</html>
