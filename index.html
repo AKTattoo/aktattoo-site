@@ -322,6 +322,42 @@
             margin-bottom: 28px;
         }
 
+        /* Bio mini-strip — small square thumbs */
+        .bio-strip-label {
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin: 8px 0 14px 0;
+            font-weight: 600;
+        }
+        .bio-strip {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        .bio-strip .gallery-item {
+            display: block;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .bio-strip .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s, opacity 0.2s;
+            display: block;
+        }
+        .bio-strip .gallery-item:hover img {
+            transform: scale(1.08);
+            opacity: 0.85;
+        }
+        @media (max-width: 600px) {
+            .bio-strip { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+        }
+
         .artist-specialties h4 {
             font-size: 0.65rem;
             letter-spacing: 0.3em;
@@ -389,34 +425,39 @@
         }
         #lb-close {
             position: fixed;
-            top: 18px; right: 28px;
-            background: none;
+            top: 0; right: 0;
+            background: rgba(0,0,0,0.4);
             border: none;
             color: #fff;
             font-size: 2.4rem;
             cursor: pointer;
             line-height: 1;
-            opacity: 0.7;
-            transition: opacity 0.2s;
+            opacity: 0.85;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 10002;
+            padding: 14px 22px;
         }
-        #lb-close:hover { opacity: 1; }
+        #lb-close:hover { opacity: 1; background: rgba(0,0,0,0.7); color: var(--orange); }
         #lb-prev, #lb-next {
             position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 0;
+            height: 100vh;
+            width: 30vw;
             background: none;
             border: none;
             color: #fff;
-            font-size: 3rem;
+            font-size: 4rem;
             cursor: pointer;
-            padding: 0 20px;
             opacity: 0.6;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s, background 0.2s;
             user-select: none;
+            display: flex;
+            align-items: center;
+            z-index: 10001;
         }
-        #lb-prev { left: 10px; }
-        #lb-next { right: 10px; }
-        #lb-prev:hover, #lb-next:hover { opacity: 1; color: var(--orange); }
+        #lb-prev { left: 0; justify-content: flex-start; padding-left: 20px; }
+        #lb-next { right: 0; justify-content: flex-end; padding-right: 20px; }
+        #lb-prev:hover, #lb-next:hover { opacity: 1; color: var(--orange); background: rgba(0,0,0,0.15); }
         #lb-counter {
             margin-top: 14px;
             font-size: 0.78rem;
@@ -800,6 +841,25 @@
                 AK Tattoo is not your average shop. Walk in and you'll find original paintings, sculptures, and one-of-a-kind custom tattoo designs covering the walls. This is an artist's studio — Kevin's clients have included Nikki Sixx of Mötley Crüe and Mike Herrera, lead singer of MxPx.
             </p>
 
+            <div class="bio-strip-label">Behind the Scenes</div>
+            <div class="bio-strip lb-grid">
+                <a class="gallery-item" href="Kevin_Bio_Pics/Kevin-Harden-Tattoo-Artist-Portrait-AKTattoo-Anchorage-Alaska.jpg">
+                    <img src="Kevin_Bio_Pics/Kevin-Harden-Tattoo-Artist-Portrait-AKTattoo-Anchorage-Alaska.jpg" alt="Kevin Harden Tattoo Artist Portrait AK Tattoo Anchorage Alaska" loading="lazy">
+                </a>
+                <a class="gallery-item" href="Kevin_Bio_Pics/aktattoo_walkins_alaska_anchorage_studio_tattoo_shop_KEVIN.9.jpg">
+                    <img src="Kevin_Bio_Pics/aktattoo_walkins_alaska_anchorage_studio_tattoo_shop_KEVIN.9.jpg" alt="Kevin at AK Tattoo Studio Walk-Ins Anchorage Alaska" loading="lazy">
+                </a>
+                <a class="gallery-item" href="Kevin_Bio_Pics/SKATEBOARD_Alaska.tattoo.AKTATTOO.anchorage.studio.jpg">
+                    <img src="Kevin_Bio_Pics/SKATEBOARD_Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Kevin Harden Skateboarding Anchorage Alaska AK Tattoo" loading="lazy">
+                </a>
+                <a class="gallery-item" href="Kevin_Bio_Pics/SNOW.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg">
+                    <img src="Kevin_Bio_Pics/SNOW.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Kevin Harden in the Alaska Snow AK Tattoo Anchorage" loading="lazy">
+                </a>
+                <a class="gallery-item" href="Kevin_Bio_Pics/city.pastels.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg">
+                    <img src="Kevin_Bio_Pics/city.pastels.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Kevin Harden City Pastels Painting AK Tattoo Anchorage Alaska" loading="lazy">
+                </a>
+            </div>
+
             <img src="AKT.LOGO.Web.png" alt="AK Tattoo Logo Anchorage Alaska" style="width: 320px; margin-top: 28px; display: block;">
         </div>
 
@@ -814,97 +874,58 @@
             <a href="contact.html" class="btn btn-orange" style="padding:9px 18px;">Reserve Your Spot</a>
         </div>
 
-        <div class="gallery-grid" id="gallery-tattoos">
-            <a class="gallery-item" href="001_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="001_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Black Grey Butterfly Floral Half Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+        <div class="gallery-grid lb-grid" id="gallery-tattoos">
+            <a class="gallery-item" href="tattoos/001_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/001_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="bio sleeve dmt Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="002_Cady.Flowr3.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="002_Cady.Flowr3.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Color Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/002_Color.Biomechanical.Full.Arm.Sleeve.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="tattoos/002_Color.Biomechanical.Full.Arm.Sleeve.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Color Biomechanical Full Arm Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="003_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="003_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Poppy Floral Shoulder Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/003_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/003_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="cthullu bio Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="004_MEMORIAL.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="004_MEMORIAL.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Memorial Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/004_Bio.Crystal.Leg.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/004_Bio.Crystal.Leg.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio Crystal Leg Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="005_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="005_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica DMT Full Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/005_KEN.BIOSHIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/005_KEN.BIOSHIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="KEN BIOSHIN Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="006_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="006_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica Cthulhu Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/006_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/006_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Holly BUTTERFLY FLORAL Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="007_Bio.Crystal.Leg.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="007_Bio.Crystal.Leg.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio Crystal Leg Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/007_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="tattoos/007_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Poppy Floral Shoulder Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="008_Black-Grey-Seahorse-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="008_Black-Grey-Seahorse-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Seahorse Forearm Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/008_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="tattoos/008_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Wild Rose Pine Cone Floral Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="009_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="009_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Alaska Wild Rose Pine Cone Floral Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/009_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" target="_blank">
+                <img src="tattoos/009_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" alt="Color Fish Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0010_KILA.SALMON.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0010_KILA.SALMON.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Alaska Salmon Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/010_KILA.SALMON.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/010_KILA.SALMON.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="KILA SALMON Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0011_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" target="_blank">
-                <img src="0011_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" alt="Color Fish Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/011_Logan_Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/011_Logan_Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Logan Salmon Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0012_TUCKER.Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0012_TUCKER.Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Color Salmon Fish Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/012_TUCKER.Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/012_TUCKER.Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="TUCKER Salmon Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0013_Tribal.tattoo.anchorage.alaska.aktattoo.kevin.harden.Mark.jpg" target="_blank">
-                <img src="0013_Tribal.tattoo.anchorage.alaska.aktattoo.kevin.harden.Mark.jpg" alt="Tribal Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/013_Black-Grey-Seahorse-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="tattoos/013_Black-Grey-Seahorse-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Seahorse Forearm Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0014_Neo-Traditional-Pink-Magnolia-Floral-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="0014_Neo-Traditional-Pink-Magnolia-Floral-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Neo Traditional Pink Magnolia Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/014_Sean.M.Octo.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
+                <img src="tattoos/014_Sean.M.Octo.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Sean M Octo Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0015_Logan_Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0015_Logan_Salmon.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Alaska Salmon Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/015_Full-Back-Japanese-Dragon-Snake-Color-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
+                <img src="tattoos/015_Full-Back-Japanese-Dragon-Snake-Color-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Full Back Japanese Dragon Snake Color Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0016_Sean.M.Octo.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0016_Sean.M.Octo.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Octopus Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="tattoos/016_Color.Portfolio.Multi.Color.Body.Art.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="tattoos/016_Color.Portfolio.Multi.Color.Body.Art.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Color Portfolio Multi Color Body Art Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="0017_Queen.of.Hearts.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0017_Queen.of.Hearts.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Queen of Hearts Neo-Traditional Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0018_Color-Double-Tiger-Skull-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.png" target="_blank">
-                <img src="0018_Color-Double-Tiger-Skull-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.png" alt="Color Double Tiger Skull Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0019_bio.knee.gator.snake.bear.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0019_bio.knee.gator.snake.bear.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica Knee Gator Snake Bear Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0020_KEN.BIOSHIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0020_KEN.BIOSHIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio-Organica Shin Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0021_LOGAN_Rage.City.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0021_LOGAN_Rage.City.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Rage City Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0022_USN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0022_USN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="USN Military Navy Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0023_Full-Back-Japanese-Dragon-Snake-Color-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="0023_Full-Back-Japanese-Dragon-Snake-Color-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Full Back Japanese Dragon Snake Color Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0024_WOODGRAIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0024_WOODGRAIN.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Woodgrain Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0025_Black-Grey-Lighthouse-Skull-Ocean-Waves-Sleeve-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="0025_Black-Grey-Lighthouse-Skull-Ocean-Waves-Sleeve-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Lighthouse Skull Ocean Waves Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0026_Winter.Cabin.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" target="_blank">
-                <img src="0026_Winter.Cabin.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Winter Cabin Alaska Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0027_Black-Grey-Rose-Butterfly-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" target="_blank">
-                <img src="0027_Black-Grey-Rose-Butterfly-Forearm-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Black Grey Rose Butterfly Forearm Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0028_Alaska.tattoo.AKTATTOO.anchorage.studio.bug.jpg" target="_blank">
-                <img src="0028_Alaska.tattoo.AKTATTOO.anchorage.studio.bug.jpg" alt="Bug Insect Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0029_AKTATTOO_Anchorage_Alaska_Color-Mystical-Eye-Seashell-Wrist-7.jpg" target="_blank">
-                <img src="0029_AKTATTOO_Anchorage_Alaska_Color-Mystical-Eye-Seashell-Wrist-7.jpg" alt="Color Mystical Eye Seashell Wrist Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
-            <a class="gallery-item" href="0030_AKTATTOO_Anchorage_Alaska_Color-Sacred-Scarab-Beetle-Calf.jpg" target="_blank">
-                <img src="0030_AKTATTOO_Anchorage_Alaska_Color-Sacred-Scarab-Beetle-Calf.jpg" alt="Color Sacred Scarab Beetle Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
-            </a>
+        </div>
+        <div style="text-align:center; margin-top: 32px;">
+            <a href="tattoos.html" class="btn btn-orange" style="display:inline-block; color:#000;">SEE THE FULL TATTOO PORTFOLIO &nbsp;→</a>
         </div>
     </section>
 
@@ -912,43 +933,65 @@
 
     <!-- ── ARTWORK GALLERY ── -->
     <section class="gallery-section" id="artwork">
-        <span class="section-label">Original Artwork</span>
-        <h2 class="section-heading">Art by Kevin Harden</h2>
-        <p style="text-align:center; color:var(--gray); font-size:0.9rem; max-width:600px; margin:0 auto 20px;">Kevin's original tattoo pre-drawn designs are available — labors of love looking for a new home.</p>
-        <div class="gallery-grid" id="gallery-artwork">
-            <a class="gallery-item" href="000A_AKT_LOGO_Web.png" target="_blank">
-                <img src="000A_AKT_LOGO_Web.png" alt="AK Tattoo Logo Artwork Kevin Harden Anchorage Alaska" loading="lazy">
+        <h2 class="section-heading" style="text-align:center; margin: 40px auto 28px;">Artwork by Kevin Harden</h2>
+        <div class="gallery-grid lb-grid" id="gallery-artwork">
+            <a class="gallery-item" href="artwork/000_ART.LINK-Alaska.tattoo.AKTATTOO.anchorage.studioB.webp" target="_blank">
+                <img src="artwork/000_ART.LINK-Alaska.tattoo.AKTATTOO.anchorage.studioB.webp" alt="Original Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="000_ART.LINK-Alaska.tattoo.AKTATTOO.anchorage.studioB.webp" target="_blank">
-                <img src="000_ART.LINK-Alaska.tattoo.AKTATTOO.anchorage.studioB.webp" alt="Original Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/001_AKT_LOGO_Web.png" target="_blank">
+                <img src="artwork/001_AKT_LOGO_Web.png" alt="AK Tattoo Logo Artwork Kevin Harden Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="aktattoo.kevinharden.alaska.anchorage.studio.biomechanical_kevin_Harden.jpg" target="_blank">
-                <img src="aktattoo.kevinharden.alaska.anchorage.studio.biomechanical_kevin_Harden.jpg" alt="Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/002_AKTATTOO.Star.Sticker.png" target="_blank">
+                <img src="artwork/002_AKTATTOO.Star.Sticker.png" alt="AK Tattoo Star Sticker Design Kevin Harden Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="aktattoo.kevinharden.alaska.anchorage.studio.shop_neotraditional_biomechanical.jpg" target="_blank">
-                <img src="aktattoo.kevinharden.alaska.anchorage.studio.shop_neotraditional_biomechanical.jpg" alt="Neo-Traditional Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/003_AKT_ArrowHead.png" target="_blank">
+                <img src="artwork/003_AKT_ArrowHead.png" alt="AK Tattoo Arrowhead Design Kevin Harden Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="aktattoo.kevinharden.alaska.anchorage.biomechanical_mushroom.jpg" target="_blank">
-                <img src="aktattoo.kevinharden.alaska.anchorage.biomechanical_mushroom.jpg" alt="Biomechanical Mushroom Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/004_AKTATTOO_Skull.png" target="_blank">
+                <img src="artwork/004_AKTATTOO_Skull.png" alt="AK Tattoo Skull Shield Artwork Kevin Harden Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" target="_blank">
-                <img src="aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" alt="DMT Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/005_Color.Japanese.Salmon.Waves.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/005_Color.Japanese.Salmon.Waves.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Japanese Salmon Waves Color Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="Biomechanical_Bio.Sleeve_aktattoo_anchorage_alaksa.jpg" target="_blank">
-                <img src="Biomechanical_Bio.Sleeve_aktattoo_anchorage_alaksa.jpg" alt="Biomechanical Bio Sleeve Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/006_Color.Salmon.Forgetmenot_alaska_.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/006_Color.Salmon.Forgetmenot_alaska_.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Salmon Forget-Me-Not Alaska Color Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="007_Organica.06.jpg" target="_blank">
-                <img src="007_Organica.06.jpg" alt="Bio-Organica Original Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/007_Color.Caribou.Antlers.Nature.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/007_Color.Caribou.Antlers.Nature.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Caribou Antlers Nature Color Artwork Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="008_AKTATTOO.Star.Sticker.png" target="_blank">
-                <img src="008_AKTATTOO.Star.Sticker.png" alt="AK Tattoo Star Sticker Design Kevin Harden Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/007b_Color.Octopus.Tentacles.jellfish_fish_neotraditional_Illustrative_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/007b_Color.Octopus.Tentacles.jellfish_fish_neotraditional_Illustrative_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Octopus Tentacles Jellyfish Neo-Traditional Illustrative Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="009_AKT_ArrowHead.png" target="_blank">
-                <img src="009_AKT_ArrowHead.png" alt="AK Tattoo Arrowhead Design Kevin Harden Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/008_Color.biomech_antlers_surreal_neopsychadelic_.Sleeve.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/008_Color.biomech_antlers_surreal_neopsychadelic_.Sleeve.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Biomech Antlers Surreal Neo-Psychedelic Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
-            <a class="gallery-item" href="009A_AKTATTOO_Skull.png" target="_blank">
-                <img src="009A_AKTATTOO_Skull.png" alt="AK Tattoo Skull Artwork Kevin Harden Anchorage Alaska" loading="lazy">
+            <a class="gallery-item" href="artwork/009_Color.Biomech.ice_sleeve_icicle_snowflake_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/009_Color.Biomech.ice_sleeve_icicle_snowflake_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Biomech Ice Icicle Snowflake Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
             </a>
+            <a class="gallery-item" href="artwork/0010_Color.Ornate.Eye.Bioorganic.Sleeve.original_tattoo_Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0010_Color.Ornate.Eye.Bioorganic.Sleeve.original_tattoo_Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Ornate Eye Bioorganic Sleeve Original Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="artwork/0011_Color.bones.Skull_sleeve_tattoo_ribs_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0011_Color.bones.Skull_sleeve_tattoo_ribs_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Bones Skull Ribs Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="artwork/0012_Black.Biomech.Glowing.sleeve.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0012_Black.Biomech.Glowing.sleeve.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Black Biomech Glowing Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="artwork/0013_Color.Biomechanical.sleeve_tattoo.Green.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0013_Color.Biomechanical.sleeve_tattoo.Green.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Biomechanical Green Sleeve Tattoo Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="artwork/0014_Color.Surreal.wood_sleeve_original_.Psychedelic.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0014_Color.Surreal.wood_sleeve_original_.Psychedelic.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Surreal Wood Psychedelic Sleeve Original Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="artwork/0015_Color.sleeve_art_coral_shark_tooth_scuba_tattoo_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0015_Color.sleeve_art_coral_shark_tooth_scuba_tattoo_Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Coral Shark Tooth Scuba Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+            <a class="gallery-item" href="artwork/0016_Color.Antler.Biomech.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" target="_blank">
+                <img src="artwork/0016_Color.Antler.Biomech.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Antler Biomech Design Kevin Harden AK Tattoo Anchorage Alaska" loading="lazy">
+            </a>
+        </div>
+        <div style="text-align:center; margin-top: 32px;">
+            <a href="portfolio.html" class="btn btn-orange" style="display:inline-block; color:#000;">TONS OF DRAWINGS AND ART BY: KEVIN &nbsp;→</a>
         </div>
     </section>
 
@@ -1204,14 +1247,6 @@
     var currentImages = [];
     var currentIndex = 0;
 
-    function buildGalleryList(gridId) {
-        var items = [];
-        document.querySelectorAll('#' + gridId + ' .gallery-item').forEach(function(a) {
-            items.push({ src: a.getAttribute('href'), alt: a.querySelector('img').getAttribute('alt') });
-        });
-        return items;
-    }
-
     function openLightbox(images, index) {
         currentImages = images;
         currentIndex = index;
@@ -1243,11 +1278,12 @@
         showImage();
     }
 
-    // Wire up both galleries
-    ['gallery-tattoos', 'gallery-artwork'].forEach(function(gridId) {
-        var grid = document.getElementById(gridId);
-        if (!grid) return;
-        var images = buildGalleryList(gridId);
+    // Wire every .lb-grid as its own image set (tattoos, artwork, bio strip, etc.)
+    document.querySelectorAll('.lb-grid').forEach(function(grid) {
+        var images = [];
+        grid.querySelectorAll('.gallery-item').forEach(function(a) {
+            images.push({ src: a.getAttribute('href'), alt: a.querySelector('img').getAttribute('alt') });
+        });
         grid.querySelectorAll('.gallery-item').forEach(function(a, i) {
             a.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1256,9 +1292,12 @@
         });
     });
 
-    document.getElementById('lb-close').addEventListener('click', closeLightbox);
-    document.getElementById('lb-prev').addEventListener('click', prevImage);
-    document.getElementById('lb-next').addEventListener('click', nextImage);
+    // Click image itself = next (Instagram-style)
+    lbImg.addEventListener('click', function(e){ e.stopPropagation(); nextImage(); });
+
+    document.getElementById('lb-close').addEventListener('click', function(e){ e.stopPropagation(); closeLightbox(); });
+    document.getElementById('lb-prev').addEventListener('click', function(e){ e.stopPropagation(); prevImage(); });
+    document.getElementById('lb-next').addEventListener('click', function(e){ e.stopPropagation(); nextImage(); });
 
     // Close on backdrop click
     lb.addEventListener('click', function(e) {
