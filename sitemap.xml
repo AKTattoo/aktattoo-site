@@ -5,15 +5,15 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://aktattoo.ink/contact.html</loc>
+    <loc>https://aktattoo.ink/contact</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://aktattoo.ink/portfolio.html</loc>
+    <loc>https://aktattoo.ink/portfolio</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://aktattoo.ink/tattoos.html</loc>
+    <loc>https://aktattoo.ink/tattoos</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
