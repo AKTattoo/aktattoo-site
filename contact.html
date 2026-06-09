@@ -502,6 +502,17 @@
         document.getElementById('file-name').textContent = files || '';
     });
 
+    // Prevent double-submission (disable button + show feedback)
+    document.querySelector('form[name="tattoo-consultation"]').addEventListener('submit', function() {
+        var btn = this.querySelector('.btn-submit');
+        if (btn) {
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'not-allowed';
+        }
+    });
+
     // Show success message after form submission
     if (window.location.search.includes('success=true')) {
         document.querySelector('form').style.display = 'none';
