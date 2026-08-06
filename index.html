@@ -91,44 +91,51 @@
         /* ── CONTACT BLOCK ── */
         /* ── HERO ── */
         .hero {
-            position: relative;
             width: 100%;
-            height: 90vh;
-            min-height: 500px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
         }
 
-        .hero-video {
+        .hero-media {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .hero-slide {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
+            opacity: 0;
+            transition: opacity 0.9s ease-in-out;
         }
 
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.62);
-        }
+        /* Photos fit the space — whole image visible, never cropped */
+        img.hero-slide { object-fit: contain; }
+
+        .hero-slide.active { opacity: 1; }
 
         .hero-content {
-            position: relative;
-            z-index: 2;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 20px;
+            padding: 40px;
         }
 
         .hero-content img {
-            height: 200px;
-            margin-bottom: 24px;
+            height: min(320px, 40vh);
+            max-width: 90%;
+            object-fit: contain;
+            margin-bottom: 32px;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .hero-content h1 {
@@ -184,9 +191,11 @@
 
         .btn-hero-outline:hover { border-color: var(--orange); color: var(--orange); }
 
-        @media (max-width: 600px) {
-            .hero { height: 100vh; }
-            .hero-content img { height: 140px; }
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; height: auto; min-height: 0; }
+            .hero-media { height: 55vh; }
+            .hero-content { padding: 48px 20px; }
+            .hero-content img { height: 200px; }
             .hero-content h1 { font-size: 0.85rem; letter-spacing: 0.2em; }
         }
 
@@ -746,10 +755,24 @@
 
     <!-- ── HERO ── -->
     <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline preload="auto">
-            <source src="hero.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
+        <div class="hero-media">
+            <img class="hero-slide active" src="tattoos/006_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Butterfly Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="tattoos/007_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Poppy Floral Shoulder Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="tattoos/001_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio Sleeve DMT Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="tattoos/008_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Alaska Wild Rose Pine Cone Floral Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="tattoos/009_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" alt="Color Fish Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="tattoos/037_Neo-Traditional-Pink-Magnolia-Floral-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Neo-Traditional Pink Magnolia Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="tattoos/003_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Cthulhu Bio Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="artwork/005_Color.Japanese.Salmon.Waves.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Japanese Salmon Waves Color Artwork Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="artwork/008_Color.biomech_antlers_surreal_neopsychadelic_.Sleeve.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Biomech Antlers Surreal Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="artwork/0016_Color.Antler.Biomech.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Antler Biomech Color Design Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="artwork/0014_Color.Surreal.wood_sleeve_original_.Psychedelic.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Surreal Wood Psychedelic Sleeve Original Design Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="artwork/0027_aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" alt="DMT Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="artwork/0034_Organica.06.jpg" alt="Organica Artwork Kevin Harden AK Tattoo Anchorage Alaska">
+            <video class="hero-slide" autoplay muted loop playsinline preload="auto">
+                <source src="hero.mp4" type="video/mp4">
+            </video>
+        </div>
         <div class="hero-content">
             <img src="AKT.LOGO.Web.png" alt="AK Tattoo Anchorage Alaska">
             <h1>Custom Tattoo Art · Anchorage, Alaska</h1>
@@ -1247,6 +1270,27 @@
 </div>
 
 <script>
+    // ── Hero slideshow (crossfade) ──
+    (function() {
+        var slides = document.querySelectorAll('.hero .hero-slide');
+        if (slides.length < 2) return;
+        var idx = 0;
+        var VIDEO_HOLD = 8000;   // how long the video plays before the first fade
+        var IMAGE_HOLD = 4200;   // how long each photo stays up
+
+        function holdFor(slide) {
+            return slide.tagName === 'VIDEO' ? VIDEO_HOLD : IMAGE_HOLD;
+        }
+
+        function next() {
+            slides[idx].classList.remove('active');
+            idx = (idx + 1) % slides.length;
+            slides[idx].classList.add('active');
+            setTimeout(next, holdFor(slides[idx]));
+        }
+        setTimeout(next, holdFor(slides[idx]));
+    })();
+
     // ── FAQ accordion ──
     document.querySelectorAll('.faq-question').forEach(function(q) {
         q.addEventListener('click', function() {
