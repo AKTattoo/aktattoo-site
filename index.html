@@ -672,6 +672,25 @@
             filter: grayscale(80%) invert(90%);
         }
 
+        /* ── STUDIO VIDEO ── */
+        .video-section {
+            padding: 80px 40px;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .studio-video {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 900px) {
+            .video-section { padding: 50px 20px; }
+        }
+
         /* ── FOOTER ── */
         footer {
             background: var(--black);
@@ -769,9 +788,6 @@
             <img class="hero-slide" src="artwork/0014_Color.Surreal.wood_sleeve_original_.Psychedelic.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Surreal Wood Psychedelic Sleeve Original Design Kevin Harden AK Tattoo Anchorage Alaska">
             <img class="hero-slide" src="artwork/0027_aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" alt="DMT Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska">
             <img class="hero-slide" src="artwork/0034_Organica.06.jpg" alt="Organica Artwork Kevin Harden AK Tattoo Anchorage Alaska">
-            <video class="hero-slide" autoplay muted loop playsinline preload="auto">
-                <source src="hero.mp4" type="video/mp4">
-            </video>
         </div>
         <div class="hero-content">
             <img src="AKT.LOGO.Web.png" alt="AK Tattoo Anchorage Alaska">
@@ -1225,6 +1241,16 @@
 
     <hr class="divider">
 
+    <!-- ── STUDIO VIDEO ── -->
+    <section class="video-section" id="video">
+        <span class="section-label">Watch Kevin at Work</span>
+        <video class="studio-video" autoplay muted loop playsinline preload="metadata">
+            <source src="hero.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <hr class="divider">
+
     <!-- ── FOOTER ── -->
     <footer>
         <div>
@@ -1275,20 +1301,14 @@
         var slides = document.querySelectorAll('.hero .hero-slide');
         if (slides.length < 2) return;
         var idx = 0;
-        var VIDEO_HOLD = 8000;   // how long the video plays before the first fade
         var IMAGE_HOLD = 4200;   // how long each photo stays up
-
-        function holdFor(slide) {
-            return slide.tagName === 'VIDEO' ? VIDEO_HOLD : IMAGE_HOLD;
-        }
 
         function next() {
             slides[idx].classList.remove('active');
             idx = (idx + 1) % slides.length;
             slides[idx].classList.add('active');
-            setTimeout(next, holdFor(slides[idx]));
         }
-        setTimeout(next, holdFor(slides[idx]));
+        setInterval(next, IMAGE_HOLD);
     })();
 
     // ── FAQ accordion ──
