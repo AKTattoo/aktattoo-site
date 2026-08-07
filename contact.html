@@ -367,6 +367,7 @@
 
     <form name="tattoo-consultation" method="POST" action="/success.html" data-netlify="true" enctype="multipart/form-data" >
         <input type="hidden" name="form-name" value="tattoo-consultation">
+        <input type="hidden" name="Name" id="combined-name">
 
 
         <div class="form-grid">
@@ -374,23 +375,23 @@
             <!-- Name -->
             <div class="form-group">
                 <label for="first-name">First Name *</label>
-                <input type="text" id="first-name" name="firstName" required placeholder="First name">
+                <input type="text" id="first-name" required placeholder="First name">
             </div>
 
             <div class="form-group">
                 <label for="last-name">Last Name *</label>
-                <input type="text" id="last-name" name="lastName" required placeholder="Last name">
+                <input type="text" id="last-name" required placeholder="Last name">
             </div>
 
             <!-- Contact -->
             <div class="form-group">
                 <label for="cell">Cell Phone *</label>
-                <input type="tel" id="cell" name="cell" required placeholder="(907) 000-0000">
+                <input type="tel" id="cell" name="Phone" required placeholder="907-000-0000">
             </div>
 
             <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com">
+                <input type="email" id="email" name="Email" required placeholder="your@email.com">
             </div>
 
             <hr class="form-divider">
@@ -399,9 +400,9 @@
             <div class="form-group full">
                 <label>Artist Request</label>
                 <div class="check-group">
-                    <label class="check-item"><input type="radio" name="artistRequest" value="Kevin Harden"> Kevin Harden</label>
-                    <label class="check-item"><input type="radio" name="artistRequest" value="Cade Bennett"> Cade Bennett</label>
-                    <label class="check-item"><input type="radio" name="artistRequest" value="No Preference" checked> No Preference</label>
+                    <label class="check-item"><input type="radio" name="Artist" value="Kevin Harden"> Kevin Harden</label>
+                    <label class="check-item"><input type="radio" name="Artist" value="Cade Bennett"> Cade Bennett</label>
+                    <label class="check-item"><input type="radio" name="Artist" value="No Preference" checked> No Preference</label>
                 </div>
             </div>
 
@@ -410,22 +411,22 @@
             <!-- Tattoo Idea -->
             <div class="form-group full">
                 <label for="tattoo-idea">Tattoo Idea *</label>
-                <textarea id="tattoo-idea" name="tattoo-idea" required placeholder="Describe your tattoo idea in as much detail as possible — subject matter, style, imagery, meaning, etc."></textarea>
+                <textarea id="tattoo-idea" name="Tattoo" required placeholder="Describe your tattoo idea in as much detail as possible — subject matter, style, imagery, meaning, etc."></textarea>
             </div>
 
             <!-- Placement -->
             <div class="form-group full">
                 <label for="placement">Placement on Body *</label>
-                <input type="text" id="placement" name="placement" required placeholder="e.g. Left upper arm, inner right calf, upper back">
+                <input type="text" id="placement" name="Body Part" required placeholder="e.g. Left upper arm, inner right calf, upper back">
             </div>
 
             <!-- Style -->
             <div class="form-group full">
                 <label>Style</label>
                 <div class="check-group">
-                    <label class="check-item"><input type="checkbox" name="style" value="Line Work"> Line Work</label>
-                    <label class="check-item"><input type="checkbox" name="style" value="Black & Grey"> Black &amp; Grey</label>
-                    <label class="check-item"><input type="checkbox" name="style" value="Color"> Color</label>
+                    <label class="check-item"><input type="checkbox" name="Style" value="Line Work"> Line Work</label>
+                    <label class="check-item"><input type="checkbox" name="Style" value="Black & Grey"> Black &amp; Grey</label>
+                    <label class="check-item"><input type="checkbox" name="Style" value="Color"> Color</label>
                 </div>
             </div>
 
@@ -434,25 +435,17 @@
             <!-- Availability -->
             <div class="form-group full">
                 <label for="availability">Days &amp; Times That Work Best</label>
-                <input type="text" id="availability" name="availability" placeholder="Wednesdays at noon, Fridays after 4pm…">
+                <input type="text" id="availability" name="Days" placeholder="Wednesdays at noon, Fridays after 4pm…">
             </div>
 
             <!-- Reply Preference -->
             <div class="form-group full">
                 <label>Preferred Reply Method</label>
                 <div class="check-group">
-                    <label class="check-item"><input type="radio" name="reply-preference" value="Call"> Call</label>
-                    <label class="check-item"><input type="radio" name="reply-preference" value="Text"> Text</label>
-                    <label class="check-item"><input type="radio" name="reply-preference" value="Email"> Email</label>
+                    <label class="check-item"><input type="radio" name="Reply" value="Call"> Call</label>
+                    <label class="check-item"><input type="radio" name="Reply" value="Text"> Text</label>
+                    <label class="check-item"><input type="radio" name="Reply" value="Email"> Email</label>
                 </div>
-            </div>
-
-            <!-- Newsletter -->
-            <div class="form-group full">
-                <label class="check-item" style="text-transform:none; letter-spacing:0; font-size:0.85rem; color:var(--light);">
-                    <input type="checkbox" name="newsletter" value="Yes">
-                    Add me to the AK Tattoo newsletter for updates, flash deals, and new artwork
-                </label>
             </div>
 
             <hr class="form-divider">
@@ -462,7 +455,7 @@
             <div class="form-group full">
                 <label>Upload Reference Images</label>
                 <div class="upload-zone" id="upload-zone">
-                    <input type="file" name="reference-images" id="file-input" accept="image/*" multiple>
+                    <input type="file" name="Reference" id="file-input" accept="image/*" multiple>
                     <div class="upload-icon">📎</div>
                     <div class="upload-text">Tap to upload reference photos</div>
                     <div class="upload-sub">JPG, PNG, HEIC accepted · Multiple files OK</div>
@@ -502,8 +495,19 @@
         document.getElementById('file-name').textContent = files || '';
     });
 
+    // Auto-format phone as 907-000-0000
+    document.getElementById('cell').addEventListener('input', function() {
+        var d = this.value.replace(/\D/g, '').slice(0, 10);
+        this.value = d.length > 6 ? d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6)
+                   : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3)
+                   : d;
+    });
+
     // Prevent double-submission (disable button + show feedback)
     document.querySelector('form[name="tattoo-consultation"]').addEventListener('submit', function() {
+        document.getElementById('combined-name').value =
+            (document.getElementById('first-name').value.trim() + ' ' +
+             document.getElementById('last-name').value.trim()).trim();
         var btn = this.querySelector('.btn-submit');
         if (btn) {
             btn.disabled = true;
