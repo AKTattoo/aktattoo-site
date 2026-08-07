@@ -263,6 +263,15 @@
   }
   [dobM, dobD, dobY].forEach(s => s.addEventListener('change', () => { s.classList.remove('invalid'); updateAge(); }));
 
+  // ---------- phone auto-format 555-555-5555 ----------
+  const phoneEl = document.getElementById('phone');
+  phoneEl.addEventListener('input', function () {
+    const d = this.value.replace(/\D/g, '').slice(0, 10);
+    this.value = d.length > 6 ? d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6)
+               : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3)
+               : d;
+  });
+
   // ---------- ID capture ----------
   let idData = null;
   const idBtn = document.getElementById('idBtn'), idFile = document.getElementById('idFile'), idPrev = document.getElementById('idPreview');
