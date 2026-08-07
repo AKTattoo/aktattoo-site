@@ -38,7 +38,7 @@
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .grid .full { grid-column: 1 / -1; }
   label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); margin-bottom: 3px; }
-  input[type=text], input[type=tel], input[type=email], input[type=date], textarea {
+  input[type=text], input[type=tel], input[type=email], textarea, select {
     width: 100%; padding: 12px; font-size: 17px;
     border: 1px solid var(--line); border-radius: 8px;
     background: var(--panel); color: var(--ink);
@@ -65,6 +65,9 @@
   }
   .clause.checked .box { background: var(--ok); border-color: var(--ok); color: #fff; }
   .clause.missing .box { border-color: var(--accent); }
+  .toggle-row.missing { border-color: var(--accent); }
+  .sigwrap.missing { border-color: var(--accent); }
+  #idBtn.missing-btn { border-color: var(--accent) !important; color: var(--accent) !important; }
   .toggle-row {
     display: flex; align-items: center; justify-content: space-between;
     gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 8px;
@@ -115,7 +118,13 @@
 <div class="grid">
   <div><label>First Name *</label><input type="text" id="firstName" autocomplete="off"></div>
   <div><label>Last Name *</label><input type="text" id="lastName" autocomplete="off"></div>
-  <div><label>Date of Birth *</label><input type="date" id="dob"></div>
+  <div><label>Date of Birth *</label>
+    <div style="display:grid; grid-template-columns:1.2fr 1fr 1.2fr; gap:6px;">
+      <select id="dobM"><option value="">Month</option></select>
+      <select id="dobD"><option value="">Day</option></select>
+      <select id="dobY"><option value="">Year</option></select>
+    </div>
+  </div>
   <div><label>Age</label><input type="text" id="age" readonly placeholder="auto"></div>
   <div><label>Cell Phone *</label><input type="tel" id="phone" autocomplete="off"></div>
   <div class="full"><label>Street Address *</label><input type="text" id="address" autocomplete="off"></div>
@@ -166,7 +175,7 @@
   </div>
 </div>
 
-<div class="toggle-row">
+<div class="toggle-row" id="photoRow">
   <span><strong style="color:var(--ok);">Photo Release:</strong> I release all rights to photographs taken of me and the tattoo and consent to their reproduction in print or electronic form.</span>
   <span class="toggle-btns">
     <button type="button" id="photoYes">YES</button>
@@ -238,17 +247,21 @@
   const today = new Date();
   const fmt = (d) => (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
   document.getElementById('sessionDate').value = fmt(today);
-  const dobEl = document.getElementById('dob');
-  dobEl.addEventListener('change', function () {
-    if (!this.value) return;
-    const dob = new Date(this.value + 'T00:00:00');
+  const dobM = document.getElementById('dobM'), dobD = document.getElementById('dobD'), dobY = document.getElementById('dobY');
+  ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].forEach((m, i) => dobM.add(new Option(m, i + 1)));
+  for (let d = 1; d <= 31; d++) dobD.add(new Option(d, d));
+  for (let yy = today.getFullYear() - 18; yy >= today.getFullYear() - 100; yy--) dobY.add(new Option(yy, yy));
+  function dobStr() { return (dobM.value && dobD.value && dobY.value) ? (dobM.value + '/' + dobD.value + '/' + dobY.value) : ''; }
+  function updateAge() {
+    if (!dobStr()) { document.getElementById('age').value = ''; return; }
+    const dob = new Date(+dobY.value, +dobM.value - 1, +dobD.value);
     let age = today.getFullYear() - dob.getFullYear();
     const m = today.getMonth() - dob.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
     document.getElementById('age').value = age;
-    if (age < 18) { alert('Client must be 18 or older. Tattooing a minor is prohibited in Alaska.'); this.classList.add('invalid'); }
-    else this.classList.remove('invalid');
-  });
+    [dobM, dobD, dobY].forEach(s => s.classList.toggle('invalid', age < 18));
+  }
+  [dobM, dobD, dobY].forEach(s => s.addEventListener('change', () => { s.classList.remove('invalid'); updateAge(); }));
 
   // ---------- ID capture ----------
   let idData = null;
@@ -266,6 +279,7 @@
       idData = cv.toDataURL('image/jpeg', 0.72);
       idPrev.src = idData; idPrev.style.display = 'block';
       idBtn.textContent = '✓ ID CAPTURED — TAP TO RETAKE';
+      idBtn.classList.remove('missing-btn');
       idBtn.style.borderColor = 'var(--ok)'; idBtn.style.color = 'var(--ok)';
       URL.revokeObjectURL(img.src);
     };
@@ -275,8 +289,8 @@
   // ---------- photo toggle ----------
   let photoConsent = null;
   const yBtn = document.getElementById('photoYes'), nBtn = document.getElementById('photoNo');
-  yBtn.onclick = () => { photoConsent = 'YES'; yBtn.className = ''; nBtn.className = 'dim'; };
-  nBtn.onclick = () => { photoConsent = 'NO'; nBtn.className = ''; yBtn.className = 'dim'; };
+  yBtn.onclick = () => { photoConsent = 'YES'; yBtn.className = ''; nBtn.className = 'dim'; document.getElementById('photoRow').classList.remove('missing'); };
+  nBtn.onclick = () => { photoConsent = 'NO'; nBtn.className = ''; yBtn.className = 'dim'; document.getElementById('photoRow').classList.remove('missing'); };
 
   // ---------- signature pads (white ink on dark screen; exported black for PDF) ----------
   function makePad(id) {
@@ -291,7 +305,7 @@
     }
     resize(); window.addEventListener('resize', resize);
     function pos(e) { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
-    c.addEventListener('pointerdown', (e) => { e.preventDefault(); drawing = true; drawn = true; const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); });
+    c.addEventListener('pointerdown', (e) => { e.preventDefault(); drawing = true; drawn = true; c.parentElement.classList.remove('missing'); const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); });
     c.addEventListener('pointermove', (e) => { if (!drawing) return; e.preventDefault(); const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => c.addEventListener(ev, () => { drawing = false; }));
     return {
@@ -325,42 +339,39 @@
   document.querySelectorAll('.clearbtn').forEach(b => b.onclick = (e) => { e.stopPropagation(); pads[b.dataset.clear].clear(); });
 
   // ---------- validation ----------
-  const required = ['firstName', 'lastName', 'dob', 'phone', 'address', 'city', 'state', 'zip', 'bodyPart', 'description'];
+  const required = ['firstName', 'lastName', 'phone', 'address', 'city', 'state', 'zip', 'bodyPart', 'description'];
   function validate() {
-    let ok = true, firstBad = null;
+    const problems = [];
     required.forEach(id => {
       const el = document.getElementById(id);
       const bad = !el.value.trim();
       el.classList.toggle('invalid', bad);
-      if (bad) { ok = false; firstBad = firstBad || el; }
+      if (bad) problems.push(el);
     });
-    if (!ok) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); alert('Please complete the highlighted required fields.'); return false; }
-    if (parseInt(document.getElementById('age').value, 10) < 18) { alert('Client must be 18 or older.'); return false; }
-    if (!idData) { document.getElementById('idBtn').scrollIntoView({ behavior: 'smooth', block: 'center' }); alert('Please photograph the client ID.'); return false; }
-    let allChecked = true;
-    document.querySelectorAll('.clause').forEach((row, i) => {
-      if (!checked[i]) { allChecked = false; row.classList.add('missing'); }
+    if (!dobStr() || !(parseInt(document.getElementById('age').value, 10) >= 18)) {
+      [dobM, dobD, dobY].forEach(s => { if (!s.value || dobStr()) s.classList.add('invalid'); });
+      problems.push(dobM);
+    }
+    if (!idData) { idBtn.classList.add('missing-btn'); problems.push(idBtn); }
+    document.querySelectorAll('#clauseList .clause').forEach((row, i) => {
+      if (!checked[i]) { row.classList.add('missing'); problems.push(row); }
     });
-    if (!allChecked) {
-      document.querySelector('.clause.missing').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      alert('Please read and tap the box for every statement.');
-      return false;
-    }
-    if (!aftercareOk) {
-      ackRow.classList.add('missing');
-      ackRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      alert('Please read the aftercare instructions and tap the box.');
-      return false;
-    }
-    if (photoConsent === null) { alert('Please answer the Photo Release question (YES or NO).'); return false; }
-    if (pads.clientSig.isEmpty()) { alert('Client signature is required.'); return false; }
+    if (!aftercareOk) { ackRow.classList.add('missing'); problems.push(ackRow); }
+    if (photoConsent === null) { const pr = document.getElementById('photoRow'); pr.classList.add('missing'); problems.push(pr); }
+    if (pads.clientSig.isEmpty()) { const w = document.getElementById('clientSig').parentElement; w.classList.add('missing'); problems.push(w); }
+    if (problems.length) { problems[0].scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
     return true;
   }
 
   // ---------- PDF (black on white, condensed) ----------
   document.getElementById('savePdf').onclick = async function () {
     if (!validate()) return;
-    if (pads.artistSig.isEmpty()) { alert('Artist signature is required.'); return; }
+    if (pads.artistSig.isEmpty()) {
+      const w = document.getElementById('artistSig').parentElement;
+      w.classList.add('missing');
+      w.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
     const v = (id) => document.getElementById(id).value.trim();
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'pt', format: 'letter' });
@@ -383,7 +394,7 @@
     doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
     doc.text('Consent to Tattoo Procedure / Release and Waiver of All Claims', W / 2, y, { align: 'center' }); y += 18;
 
-    line('Name: ' + v('firstName') + ' ' + v('lastName') + '    DOB: ' + v('dob') + '    Age: ' + v('age') + '    Phone: ' + v('phone') + (v('email') ? '    Mailing List: ' + v('email') : ''), 8.5, 'normal', 11);
+    line('Name: ' + v('firstName') + ' ' + v('lastName') + '    DOB: ' + dobStr() + '    Age: ' + v('age') + '    Phone: ' + v('phone') + (v('email') ? '    Mailing List: ' + v('email') : ''), 8.5, 'normal', 11);
     line('Address: ' + v('address') + ', ' + v('city') + ', ' + v('state') + ' ' + v('zip'), 8.5, 'normal', 11);
     line('Session: ' + v('sessionDate') + '    Body Part: ' + v('bodyPart') + '    Artist: Kevin Harden    Description: ' + v('description'), 8.5, 'normal', 13);
 
