@@ -511,7 +511,8 @@
     if (mailList === 'YES' && v('email')) {
       mlAdd(v('email'), v('firstName') + ' ' + v('lastName'), v('city'), v('state'));
       // hand the entry to the AddToMailingList shortcut, which appends it to the live CSV in iCloud Drive
-      if (/iPad|iPhone/.test(navigator.userAgent)) {
+      const isAppleTouch = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+      if (isAppleTouch) {
         const csvLine = v('email') + ',"' + (v('firstName') + ' ' + v('lastName')).replace(/"/g, '') + '","' + v('city').replace(/"/g, '') + '","' + v('state').replace(/"/g, '') + '",' + fmt(now);
         const back = encodeURIComponent(window.location.href.split('#')[0]);
         setTimeout(() => {
