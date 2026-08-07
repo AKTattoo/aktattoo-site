@@ -481,7 +481,17 @@
       try { await navigator.share({ files: [file] }); } catch (e) { if (e.name !== 'AbortError') downloadFallback(blob, fname); }
     } else { downloadFallback(blob, fname); }
 
-    if (mailList === 'YES' && v('email')) mlAdd(v('email'), v('firstName') + ' ' + v('lastName'));
+    if (mailList === 'YES' && v('email')) {
+      mlAdd(v('email'), v('firstName') + ' ' + v('lastName'), v('city'), v('state'));
+      // hand the entry to the AddToMailingList shortcut, which appends it to the live CSV in iCloud Drive
+      if (/iPad|iPhone/.test(navigator.userAgent)) {
+        const csvLine = v('email') + ',"' + (v('firstName') + ' ' + v('lastName')).replace(/"/g, '') + '","' + v('city').replace(/"/g, '') + '","' + v('state').replace(/"/g, '') + '",' + fmt(now);
+        const back = encodeURIComponent(window.location.href.split('#')[0]);
+        setTimeout(() => {
+          window.location.href = 'shortcuts://x-callback-url/run-shortcut?name=AddToMailingList&input=text&text=' + encodeURIComponent(csvLine) + '&x-success=' + back;
+        }, 800);
+      }
+    }
 
     document.getElementById('formRoot').style.display = 'none';
     document.getElementById('doneDetail').textContent = fname;
@@ -498,25 +508,39 @@
   // ---------- mailing list store (on this device) ----------
   const MLKEY = 'akt-mailing-list';
   function mlLoad() { try { return JSON.parse(localStorage.getItem(MLKEY)) || []; } catch (e) { return []; } }
-  function mlAdd(email, name) {
+  function mlAdd(email, name, city, state) {
     const list = mlLoad();
     if (!list.some(x => x.email.toLowerCase() === email.toLowerCase())) {
-      list.push({ email: email, name: name, date: fmt(new Date()) });
+      list.push({ email: email, name: name, city: city || '', state: state || '', date: fmt(new Date()) });
       localStorage.setItem(MLKEY, JSON.stringify(list));
     }
     updateMlCount();
+  }
+  function mlGroup(x) {
+    const st = (x.state || '').trim().toUpperCase();
+    const inAK = st === '' || st === 'AK' || st === 'ALASKA';
+    if (!inAK) return 'Out_of_State';
+    return (x.city || '').toLowerCase().indexOf('valdez') !== -1 ? 'Valdez' : 'Alaska';
   }
   function updateMlCount() { document.getElementById('mlExport').textContent = 'Mailing List (' + mlLoad().length + ')'; }
   updateMlCount();
   document.getElementById('mlExport').onclick = async () => {
     const list = mlLoad();
     if (!list.length) return;
-    const csv = 'Email,Name,Date Added\n' + list.map(x => x.email + ',"' + x.name.replace(/"/g, '') + '",' + x.date).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const file = new File([blob], 'AKTattoo_MailingList.csv', { type: 'text/csv' });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file] }); } catch (e) { if (e.name !== 'AbortError') downloadFallback(blob, 'AKTattoo_MailingList.csv'); }
-    } else { downloadFallback(blob, 'AKTattoo_MailingList.csv'); }
+    const groups = { Valdez: [], Alaska: [], Out_of_State: [] };
+    list.forEach(x => groups[mlGroup(x)].push(x));
+    const files = [], blobs = [];
+    Object.keys(groups).forEach(g => {
+      if (!groups[g].length) return;
+      const csv = 'Email,Name,City,State,Date Added\n' + groups[g].map(x =>
+        x.email + ',"' + (x.name || '').replace(/"/g, '') + '","' + (x.city || '') + '","' + (x.state || '') + '",' + x.date).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      blobs.push({ blob: blob, name: 'AKTattoo_List_' + g + '.csv' });
+      files.push(new File([blob], 'AKTattoo_List_' + g + '.csv', { type: 'text/csv' }));
+    });
+    if (navigator.canShare && navigator.canShare({ files: files })) {
+      try { await navigator.share({ files: files }); } catch (e) { if (e.name !== 'AbortError') blobs.forEach(b => downloadFallback(b.blob, b.name)); }
+    } else { blobs.forEach(b => downloadFallback(b.blob, b.name)); }
   };
 })();
 </script>
