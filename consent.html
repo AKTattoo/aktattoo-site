@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Consent Form">
+<link rel="apple-touch-icon" href="AK.TATTOO.Banner.png">
+<title>AK Tattoo — Consent Form</title>
+<style>
+  :root {
+    --bg: #000;
+    --panel: #161616;
+    --ink: #f2f2f2;
+    --dim: #9a9a9a;
+    --line: #3a3a3a;
+    --accent: #ff4d4d;
+    --ok: #cc5500;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--ink);
+    font-size: 17px; line-height: 1.45;
+    padding: 16px; max-width: 820px; margin: 0 auto;
+  }
+  header { text-align: center; margin-bottom: 18px; }
+  header h1 { font-size: 26px; letter-spacing: 3px; color: var(--ok); }
+  header p { font-size: 14px; color: var(--dim); }
+  h2 {
+    font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px;
+    border-bottom: 2px solid var(--ok); padding-bottom: 4px; margin: 28px 0 12px;
+    text-align: center; color: var(--ok);
+  }
+  .subnote { font-size: 14px; color: var(--dim); margin: -6px 0 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .grid .full { grid-column: 1 / -1; }
+  label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); margin-bottom: 3px; }
+  input[type=text], input[type=tel], input[type=email], input[type=date], textarea {
+    width: 100%; padding: 12px; font-size: 17px;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel); color: var(--ink);
+    appearance: none; color-scheme: dark;
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--ink); }
+  .invalid { border-color: var(--accent) !important; background: #2a1414 !important; }
+  .intro { font-size: 15px; margin: 10px 0; color: var(--ink); }
+  .readbar {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px; margin: 12px 0; font-size: 15px; font-weight: 700; text-align: center;
+  }
+  .clause {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 12px; margin: 8px 0; font-size: 15px;
+  }
+  .clause.checked { border-color: var(--ok); }
+  .clause .box {
+    flex-shrink: 0; width: 34px; height: 34px; margin-top: 2px;
+    border: 2px solid var(--dim); border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 700; color: transparent;
+  }
+  .clause.checked .box { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .clause.missing .box { border-color: var(--accent); }
+  .toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--panel); margin: 10px 0; font-size: 15px;
+  }
+  .toggle-btns { display: flex; gap: 8px; flex-shrink: 0; }
+  .toggle-btns button {
+    padding: 10px 22px; font-size: 16px; font-weight: 600;
+    border: 1.5px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--dim);
+  }
+  #photoYes { background: #2ecc5e; border-color: #2ecc5e; color: #000; }
+  #photoNo { background: #d32f2f; border-color: #d32f2f; color: #fff; }
+  #photoYes.dim, #photoNo.dim { background: var(--bg); border-color: var(--line); color: var(--dim); }
+  .sigwrap { border: 1.5px dashed #666; border-radius: 8px; background: #0d0d0d; position: relative; }
+  canvas.sig { width: 100%; height: 150px; display: block; touch-action: none; border-radius: 8px; }
+  .sigbar { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .sigbar small { color: var(--ok); }
+  .clearbtn { background: none; border: none; color: var(--accent); font-size: 15px; padding: 6px 10px; }
+  .bigbtn {
+    display: block; width: 100%; padding: 16px; margin: 22px 0 8px;
+    font-size: 18px; font-weight: 700; letter-spacing: 1px;
+    background: var(--ink); color: #000; border: none; border-radius: 10px;
+  }
+  .note { font-size: 13px; color: var(--dim); text-align: center; }
+  #doneMsg { display: none; text-align: center; padding: 40px 10px; }
+  #doneMsg h2 { border: none; font-size: 22px; }
+  .certify { font-size: 15px; font-weight: 600; margin: 12px 0; }
+  @media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div id="formRoot">
+<header>
+  <h1>AK TATTOO LLC</h1>
+  <p>Kevin Harden &middot; 409 W Northern Lights #2, Anchorage, AK 99503 &middot; (907) 365-9410</p>
+  <p style="margin-top:6px; font-weight:600; color:var(--ink);">Consent to Tattoo Procedure / Release and Waiver of All Claims</p>
+</header>
+
+<h2>Client ID</h2>
+<div>
+  <button type="button" id="idBtn" style="width:100%; padding:14px; font-size:16px; font-weight:600; border:1.5px dashed #666; border-radius:8px; background:var(--panel); color:var(--ink);">&#128247; TAP TO PHOTOGRAPH ID</button>
+  <input type="file" id="idFile" accept="image/*" capture="environment" style="display:none;">
+  <img id="idPreview" alt="" style="display:none; width:100%; max-height:220px; object-fit:contain; margin-top:8px; border-radius:8px; background:#0d0d0d;">
+</div>
+
+<h2>Client Information</h2>
+<div class="grid">
+  <div><label>First Name *</label><input type="text" id="firstName" autocomplete="off"></div>
+  <div><label>Last Name *</label><input type="text" id="lastName" autocomplete="off"></div>
+  <div><label>Date of Birth *</label><input type="date" id="dob"></div>
+  <div><label>Age</label><input type="text" id="age" readonly placeholder="auto"></div>
+  <div><label>Cell Phone *</label><input type="tel" id="phone" autocomplete="off"></div>
+  <div class="full"><label>Street Address *</label><input type="text" id="address" autocomplete="off"></div>
+  <div><label>City *</label><input type="text" id="city" autocomplete="off"></div>
+  <div style="display:grid; grid-template-columns: 1fr 1.4fr; gap:10px;">
+    <div><label>State *</label><input type="text" id="state" value="AK" autocomplete="off"></div>
+    <div><label>Zip *</label><input type="text" id="zip" autocomplete="off"></div>
+  </div>
+</div>
+
+<h2>Tattoo</h2>
+<div class="grid">
+  <div><label>Body Part / Location *</label><input type="text" id="bodyPart" autocomplete="off"></div>
+  <div><label>Date</label><input type="text" id="sessionDate" readonly></div>
+  <div class="full"><label>Tattoo Description *</label><textarea id="description" rows="2"></textarea></div>
+</div>
+
+<h2>Consent &amp; Release</h2>
+<p class="intro">In consideration of receiving a tattoo from Kevin Harden and AK Tattoo LLC, I have been fully informed of the inherent risks associated with getting a tattoo. I fully understand that these risks, known and unknown, can lead to injury, including but not limited to infection, scarring, difficulties in detecting melanoma, and allergic reactions to tattoo pigment and/or soap. Having been informed of the potential risks, I still wish to proceed and I freely accept and expressly assume any and all risks that may arise from tattooing.</p>
+
+<div class="readbar">TAP THE BOX FOR EACH STATEMENT AFTER YOU HAVE READ AND AGREE</div>
+
+<div id="clauseList"></div>
+
+<h2>Tattoo Aftercare</h2>
+<div class="clause" id="aftercareAck">
+  <div class="box">&#10003;</div>
+  <div id="aftercareList">
+    <p style="margin:0 0 8px;"><strong>CARE:</strong></p>
+    <ol style="margin:0 0 12px 22px;">
+      <li>Keep bandage on for at least 4 hours, less than 12 hours.</li>
+      <li>Take off bandage and wash thoroughly with water &amp; mild soap.</li>
+      <li>Pat dry &amp; keep moist. Put on very, very thin layers of AQUAPHOR / Skin Cream / Moisturizer 3 times a day for 2 weeks.</li>
+      <li>Consult with a physician if you have signs of infection.</li>
+    </ol>
+    <p style="margin:0 0 8px;"><strong>DO NOT:</strong></p>
+    <ol style="margin:0 0 12px 22px;">
+      <li>DO NOT pick or scratch your new tattoo. If it itches, slap it lightly.</li>
+      <li>DO NOT expose your tattoo to the sun.</li>
+      <li>DO NOT soak your tattoo in bath, jacuzzi, swimming pool, ocean or river for 2 weeks. Shower is fine.</li>
+      <li>DO NOT rebandage tattoo.</li>
+      <li>DO NOT shave tattoo for 2 weeks.</li>
+      <li>DO NOT wear tight clothes that will rub off scab.</li>
+      <li>DO NOT let pets rub on your new tattoo.</li>
+    </ol>
+    <p style="margin:0 0 10px;"><strong>I have received and read the aftercare instructions above.</strong></p>
+    <p style="margin:0 0 10px; color:var(--dim);">Questions? AK Tattoo LLC &middot; 409 W Northern Lights #2, Anchorage, AK 99503 &middot; (907) 365-9410 &middot; AKTattoo.ink</p>
+  </div>
+</div>
+
+<div class="toggle-row">
+  <span><strong style="color:var(--ok);">Photo Release:</strong> I release all rights to photographs taken of me and the tattoo and consent to their reproduction in print or electronic form.</span>
+  <span class="toggle-btns">
+    <button type="button" id="photoYes">YES</button>
+    <button type="button" id="photoNo">NO</button>
+  </span>
+</div>
+
+<div class="toggle-row" style="flex-direction:column; align-items:stretch;">
+  <span><strong style="color:var(--ok);">MAILING LIST (optional):</strong> To receive messages about deals, guest spots, special offers, and original design options, add your eMail to the mailing list.</span>
+  <input type="email" id="email" autocomplete="off" placeholder="email@example.com" style="margin-top:10px;">
+</div>
+
+<h2>Certification &amp; Client Signature</h2>
+<p class="certify">By my signature below, I certify that I am 18 years of age or older and have provided valid proof of age; that I am not under the influence of alcohol or drugs; and that I am competent to sign this Agreement. I understand that providing false information or false documents as to my name and/or age makes me liable for prosecution. I have been given the opportunity to ask any and all questions about obtaining a tattoo, and all my questions have been answered to my full satisfaction.</p>
+
+<div class="sigwrap"><canvas class="sig" id="clientSig"></canvas></div>
+<div class="sigbar"><small>Client — Sign your name above.</small><button type="button" class="clearbtn" data-clear="clientSig">Clear</button></div>
+
+<div id="artistSection">
+  <h2 style="font-size:20px; font-weight:800; letter-spacing:2.5px;">ARTIST SIGNATURE</h2>
+  <div class="sigwrap"><canvas class="sig" id="artistSig" style="height:130px;"></canvas></div>
+  <div class="sigbar"><small>Artist — Kevin Harden</small><button type="button" class="clearbtn" data-clear="artistSig">Clear</button></div>
+
+  <button type="button" class="bigbtn" id="savePdf">UPLOAD</button>
+</div>
+</div>
+
+<div id="doneMsg">
+  <h2>&#10003; Form Saved</h2>
+  <p id="doneDetail" style="margin:10px 0; color:var(--dim);"></p>
+  <button type="button" class="bigbtn" onclick="location.reload()">START NEW FORM</button>
+</div>
+
+<script src="jspdf.umd.min.js"></script>
+<script>
+(function () {
+  // ---------- clauses ----------
+  const CLAUSES = [
+    'I WAIVE AND RELEASE, to the fullest extent permitted by law, Kevin Harden and AK Tattoo LLC from all liabilities, claims, actions, and demands, in law or in equity, which I, or my estate, heirs, executors, or assigns may have for personal injury or otherwise, including any direct and/or consequential damages, which result or arise from the application of my tattoo, whether caused by the negligence or fault of either Kevin Harden or AK Tattoo LLC, or otherwise. Any tattoo can become infected, particularly if I do not follow the instructions given to me. If any touch-up work is needed due to my own negligence, I agree that the work will be done at my own expense.',
+    'I consent to the location of the tattoo and the performance of the tattoo procedure.',
+    'I do not have a mental impairment that may affect my judgment in getting tattooed. I am voluntarily submitting to be tattooed without duress or coercion.',
+    'If I have diabetes, epilepsy, hemophilia, or a heart condition, or take blood-thinning medication, I have disclosed it to the artist and I understand these conditions and medications may affect how my tattoo heals. If I am the recipient of an organ or bone marrow transplant, I have taken the preventive regimen of antibiotics prescribed by my doctor in advance of any invasive procedure such as tattooing.',
+    'If I have medical or skin conditions such as acne, scarring (keloid), eczema, psoriasis, freckles, moles, or sunburn in the area to be tattooed, I have discussed this with the artist and I understand these may affect how the tattoo heals or appears. I will advise the artist if I have an infection or rash anywhere on my body.',
+    'I am NOT pregnant or nursing.',
+    'Neither Kevin Harden nor AK Tattoo LLC is responsible for the meaning or spelling of any symbol or text that I have provided or chosen. If my tattoo includes text, I am responsible for the correct spelling, grammar, and punctuation, and I have proofread and approved the text.',
+    'I agree that the tattoo design is correctly drawn to my specifications and I will allow the artist to interpret the image to the medium of skin. Variations in color and design may exist between the art I have selected and the actual tattoo. Over time, the colors and clarity of my tattoo will fade due to unprotected sun exposure and the naturally occurring dispersion of pigment in the skin.',
+    'I understand that if my skin color is dark due to its natural melanin content, tattoo colors will not appear as bright as they do on lighter skin.',
+    'A tattoo is a permanent change to my appearance and can only be removed by laser or surgical means. I understand removal can be disfiguring and/or costly and will likely not restore my skin to its exact prior appearance.',
+    'I agree to follow all instructions to maintain a sanitary environment while being tattooed.',
+    'I agree to IMMEDIATELY notify the artist if I feel lightheaded, dizzy, or faint before, during, or after the procedure. Failure to do so releases Kevin Harden and AK Tattoo LLC of all responsibility.',
+    'I agree to reimburse Kevin Harden and AK Tattoo LLC for any attorneys’ fees and costs incurred in any legal action I bring against either of them in which they are the prevailing party. The courts of Anchorage, Alaska shall have personal jurisdiction and venue over me and exclusive jurisdiction over any dispute arising out of or related to this agreement.',
+    'I acknowledge that I have been given adequate opportunity to read and understand this document and that it was not presented to me at the last minute. I understand I am signing a legal contract waiving certain rights.'
+  ];
+  const list = document.getElementById('clauseList');
+  const checked = new Array(CLAUSES.length).fill(false);
+  CLAUSES.forEach((text, i) => {
+    const row = document.createElement('div');
+    row.className = 'clause';
+    row.innerHTML = '<div class="box">&#10003;</div><div>' + text + '</div>';
+    row.onclick = () => {
+      checked[i] = !checked[i];
+      row.classList.toggle('checked', checked[i]);
+      row.classList.remove('missing');
+    };
+    list.appendChild(row);
+  });
+
+  // ---------- date / age ----------
+  const today = new Date();
+  const fmt = (d) => (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
+  document.getElementById('sessionDate').value = fmt(today);
+  const dobEl = document.getElementById('dob');
+  dobEl.addEventListener('change', function () {
+    if (!this.value) return;
+    const dob = new Date(this.value + 'T00:00:00');
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--;
+    document.getElementById('age').value = age;
+    if (age < 18) { alert('Client must be 18 or older. Tattooing a minor is prohibited in Alaska.'); this.classList.add('invalid'); }
+    else this.classList.remove('invalid');
+  });
+
+  // ---------- ID capture ----------
+  let idData = null;
+  const idBtn = document.getElementById('idBtn'), idFile = document.getElementById('idFile'), idPrev = document.getElementById('idPreview');
+  idBtn.onclick = () => idFile.click();
+  idFile.addEventListener('change', function () {
+    const f = this.files && this.files[0];
+    if (!f) return;
+    const img = new Image();
+    img.onload = () => {
+      const maxW = 900, scale = Math.min(1, maxW / img.width);
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(img.width * scale); cv.height = Math.round(img.height * scale);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      idData = cv.toDataURL('image/jpeg', 0.72);
+      idPrev.src = idData; idPrev.style.display = 'block';
+      idBtn.textContent = '✓ ID CAPTURED — TAP TO RETAKE';
+      idBtn.style.borderColor = 'var(--ok)'; idBtn.style.color = 'var(--ok)';
+      URL.revokeObjectURL(img.src);
+    };
+    img.src = URL.createObjectURL(f);
+  });
+
+  // ---------- photo toggle ----------
+  let photoConsent = null;
+  const yBtn = document.getElementById('photoYes'), nBtn = document.getElementById('photoNo');
+  yBtn.onclick = () => { photoConsent = 'YES'; yBtn.className = ''; nBtn.className = 'dim'; };
+  nBtn.onclick = () => { photoConsent = 'NO'; nBtn.className = ''; yBtn.className = 'dim'; };
+
+  // ---------- signature pads (white ink on dark screen; exported black for PDF) ----------
+  function makePad(id) {
+    const c = document.getElementById(id), ctx = c.getContext('2d');
+    let drawn = false, drawing = false;
+    function resize() {
+      const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+      const img = drawn ? c.toDataURL() : null;
+      c.width = r.width * dpr; c.height = r.height * dpr;
+      ctx.scale(dpr, dpr); ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.strokeStyle = '#f2f2f2';
+      if (img) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = img; }
+    }
+    resize(); window.addEventListener('resize', resize);
+    function pos(e) { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+    c.addEventListener('pointerdown', (e) => { e.preventDefault(); drawing = true; drawn = true; const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); });
+    c.addEventListener('pointermove', (e) => { if (!drawing) return; e.preventDefault(); const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => c.addEventListener(ev, () => { drawing = false; }));
+    return {
+      isEmpty: () => !drawn,
+      clear: () => { const r = c.getBoundingClientRect(); ctx.clearRect(0, 0, r.width, r.height); drawn = false; },
+      // invert to black-on-transparent for the printed PDF
+      data: () => {
+        const out = document.createElement('canvas');
+        out.width = c.width; out.height = c.height;
+        const octx = out.getContext('2d');
+        octx.drawImage(c, 0, 0);
+        const d = octx.getImageData(0, 0, out.width, out.height);
+        for (let p = 0; p < d.data.length; p += 4) {
+          if (d.data[p + 3] > 0) { d.data[p] = 17; d.data[p + 1] = 17; d.data[p + 2] = 17; }
+        }
+        octx.putImageData(d, 0, 0);
+        return out.toDataURL('image/png');
+      }
+    };
+  }
+  const pads = { clientSig: makePad('clientSig'), artistSig: makePad('artistSig') };
+
+  // ---------- aftercare acknowledgment ----------
+  let aftercareOk = false;
+  const ackRow = document.getElementById('aftercareAck');
+  ackRow.onclick = () => {
+    aftercareOk = !aftercareOk;
+    ackRow.classList.toggle('checked', aftercareOk);
+    ackRow.classList.remove('missing');
+  };
+  document.querySelectorAll('.clearbtn').forEach(b => b.onclick = (e) => { e.stopPropagation(); pads[b.dataset.clear].clear(); });
+
+  // ---------- validation ----------
+  const required = ['firstName', 'lastName', 'dob', 'phone', 'address', 'city', 'state', 'zip', 'bodyPart', 'description'];
+  function validate() {
+    let ok = true, firstBad = null;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      const bad = !el.value.trim();
+      el.classList.toggle('invalid', bad);
+      if (bad) { ok = false; firstBad = firstBad || el; }
+    });
+    if (!ok) { firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' }); alert('Please complete the highlighted required fields.'); return false; }
+    if (parseInt(document.getElementById('age').value, 10) < 18) { alert('Client must be 18 or older.'); return false; }
+    if (!idData) { document.getElementById('idBtn').scrollIntoView({ behavior: 'smooth', block: 'center' }); alert('Please photograph the client ID.'); return false; }
+    let allChecked = true;
+    document.querySelectorAll('.clause').forEach((row, i) => {
+      if (!checked[i]) { allChecked = false; row.classList.add('missing'); }
+    });
+    if (!allChecked) {
+      document.querySelector('.clause.missing').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      alert('Please read and tap the box for every statement.');
+      return false;
+    }
+    if (!aftercareOk) {
+      ackRow.classList.add('missing');
+      ackRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      alert('Please read the aftercare instructions and tap the box.');
+      return false;
+    }
+    if (photoConsent === null) { alert('Please answer the Photo Release question (YES or NO).'); return false; }
+    if (pads.clientSig.isEmpty()) { alert('Client signature is required.'); return false; }
+    return true;
+  }
+
+  // ---------- PDF (black on white, condensed) ----------
+  document.getElementById('savePdf').onclick = async function () {
+    if (!validate()) return;
+    if (pads.artistSig.isEmpty()) { alert('Artist signature is required.'); return; }
+    const v = (id) => document.getElementById(id).value.trim();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+    const W = 612, M = 40, LW = W - M * 2;
+    let y = 44;
+    const line = (txt, size, style, gap) => {
+      doc.setFont('helvetica', style || 'normal'); doc.setFontSize(size);
+      const rows = doc.splitTextToSize(txt, LW);
+      rows.forEach(r => {
+        if (y > 748) { doc.addPage(); y = 44; }
+        doc.text(r, M, y); y += (gap || size * 1.28);
+      });
+    };
+    const now = new Date();
+    const stamp = fmt(now) + '  ' + now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text('AK TATTOO LLC', W / 2, y, { align: 'center' }); y += 13;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+    doc.text('Kevin Harden  ·  409 W Northern Lights #2, Anchorage, AK 99503  ·  (907) 365-9410', W / 2, y, { align: 'center' }); y += 11;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+    doc.text('Consent to Tattoo Procedure / Release and Waiver of All Claims', W / 2, y, { align: 'center' }); y += 18;
+
+    line('Name: ' + v('firstName') + ' ' + v('lastName') + '    DOB: ' + v('dob') + '    Age: ' + v('age') + '    Phone: ' + v('phone') + (v('email') ? '    Mailing List: ' + v('email') : ''), 8.5, 'normal', 11);
+    line('Address: ' + v('address') + ', ' + v('city') + ', ' + v('state') + ' ' + v('zip'), 8.5, 'normal', 11);
+    line('Session: ' + v('sessionDate') + '    Body Part: ' + v('bodyPart') + '    Artist: Kevin Harden    Description: ' + v('description'), 8.5, 'normal', 13);
+
+    line(document.querySelector('.intro').textContent.trim(), 7, 'normal', 9);
+    line('Each statement below was read and affirmatively checked by the client on screen:', 7.5, 'bold', 10);
+    CLAUSES.forEach(t => line('[X]  ' + t, 7, 'normal', 8.6));
+    line('[' + (photoConsent === 'YES' ? 'X] PHOTO RELEASE: YES' : ' ] PHOTO RELEASE: DECLINED') + ' — reproduction of photographs of the tattoo in print or electronic form.', 7.5, 'bold', 11);
+    line(document.querySelector('.certify').textContent.trim(), 7, 'normal', 10);
+
+    if (y > 640) { doc.addPage(); y = 44; }
+    line('CLIENT SIGNATURE (consent, before procedure) — signed ' + stamp, 8, 'bold', 5);
+    doc.addImage(pads.clientSig.data(), 'PNG', M, y, 170, 54);
+    if (idData) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(8);
+      doc.text('ID VERIFIED (photo):', M + 280, y);
+      doc.addImage(idData, 'JPEG', M + 280, y + 4, 150, 50);
+    }
+    y += 64;
+
+    line('TATTOO AFTERCARE INSTRUCTIONS', 8.5, 'bold', 10);
+    document.querySelectorAll('#aftercareList ol').forEach((ol, oi) => {
+      line(oi === 0 ? 'CARE:' : 'DO NOT:', 7.5, 'bold', 9);
+      ol.querySelectorAll('li').forEach((li, n) => line((n + 1) + '. ' + li.textContent.trim(), 7, 'normal', 8.6));
+    });
+    line('Questions? AK Tattoo LLC · 409 W Northern Lights #2, Anchorage, AK 99503 · (907) 365-9410 · AKTattoo.ink', 7, 'normal', 10);
+    line('[X] Client acknowledged receipt of the aftercare instructions.', 7.5, 'bold', 10);
+    line('ARTIST SIGNATURE — Kevin Harden — signed ' + stamp, 8, 'bold', 5);
+    doc.addImage(pads.artistSig.data(), 'PNG', M, y, 170, 54); y += 64;
+
+    const iso = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+    const fname = iso + '_' + v('firstName') + '_' + v('lastName') + '.pdf';
+    const blob = doc.output('blob');
+    const file = new File([blob], fname, { type: 'application/pdf' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try { await navigator.share({ files: [file] }); } catch (e) { if (e.name !== 'AbortError') downloadFallback(blob, fname); }
+    } else { downloadFallback(blob, fname); }
+
+    document.getElementById('formRoot').style.display = 'none';
+    document.getElementById('doneDetail').textContent = fname;
+    document.getElementById('doneMsg').style.display = 'block';
+    window.scrollTo(0, 0);
+  };
+
+  function downloadFallback(blob, fname) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = fname;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+})();
+</script>
+</body>
+</html>
