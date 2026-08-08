@@ -514,9 +514,8 @@
       const isAppleTouch = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
       if (isAppleTouch) {
         const csvLine = v('email') + ',"' + (v('firstName') + ' ' + v('lastName')).replace(/"/g, '') + '","' + v('city').replace(/"/g, '') + '","' + v('state').replace(/"/g, '') + '",' + fmt(now);
-        const back = encodeURIComponent(window.location.href.split('#')[0]);
         setTimeout(() => {
-          window.location.href = 'shortcuts://x-callback-url/run-shortcut?name=AddToMailingList&input=text&text=' + encodeURIComponent(csvLine) + '&x-success=' + back;
+          window.location.href = 'shortcuts://run-shortcut?name=AddToMailingList&input=text&text=' + encodeURIComponent(csvLine);
         }, 800);
       }
     }
