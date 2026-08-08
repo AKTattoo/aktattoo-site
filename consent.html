@@ -228,6 +228,7 @@
   <h2>&#10003; Form Saved</h2>
   <p id="doneDetail" style="margin:10px 0; color:var(--dim);"></p>
   <button type="button" class="bigbtn" onclick="location.reload()">START NEW FORM</button>
+  <button type="button" class="bigbtn" id="shareBackup" style="background:var(--panel); color:var(--ink); border:1px solid var(--line);">BACKUP: SHARE THIS PDF</button>
 </div>
 
 <p style="text-align:center; margin-top:34px;">
@@ -502,22 +503,26 @@
     const iso = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
     const fname = iso + '_' + v('firstName') + '_' + v('lastName') + '.pdf';
     const blob = doc.output('blob');
-    const file = new File([blob], fname, { type: 'application/pdf' });
+    window._lastPdf = { blob: blob, fname: fname };
 
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file] }); } catch (e) { if (e.name !== 'AbortError') downloadFallback(blob, fname); }
-    } else { downloadFallback(blob, fname); }
+    if (mailList === 'YES' && v('email')) mlAdd(v('email'), v('firstName') + ' ' + v('lastName'), v('city'), v('state'));
 
-    if (mailList === 'YES' && v('email')) {
-      mlAdd(v('email'), v('firstName') + ' ' + v('lastName'), v('city'), v('state'));
-      // hand the entry to the AddToMailingList shortcut, which appends it to the live CSV in iCloud Drive
-      const isAppleTouch = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
-      if (isAppleTouch) {
-        const csvLine = v('email') + ',"' + (v('firstName') + ' ' + v('lastName')).replace(/"/g, '') + '","' + v('city').replace(/"/g, '') + '","' + v('state').replace(/"/g, '') + '",' + fmt(now);
-        setTimeout(() => {
-          window.location.href = 'shortcuts://run-shortcut?name=AddToMailingList&input=text&text=' + encodeURIComponent(csvLine);
-        }, 800);
-      }
+    // hand the PDF to the SaveConsent shortcut via clipboard — files itself into iCloud, no share sheet
+    const isAppleTouch = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+    let handedOff = false;
+    if (isAppleTouch && navigator.clipboard && navigator.clipboard.writeText) {
+      try {
+        const b64 = doc.output('datauristring').split(',')[1];
+        await navigator.clipboard.writeText(b64);
+        window.location.href = 'shortcuts://run-shortcut?name=SaveConsent&input=text&text=' + encodeURIComponent(fname);
+        handedOff = true;
+      } catch (e) { handedOff = false; }
+    }
+    if (!handedOff) {
+      const file = new File([blob], fname, { type: 'application/pdf' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file] }); } catch (e) { if (e.name !== 'AbortError') downloadFallback(blob, fname); }
+      } else { downloadFallback(blob, fname); }
     }
 
     document.getElementById('formRoot').style.display = 'none';
@@ -531,6 +536,15 @@
     a.href = URL.createObjectURL(blob); a.download = fname;
     document.body.appendChild(a); a.click(); a.remove();
   }
+
+  // ---------- backup share from done screen ----------
+  document.getElementById('shareBackup').onclick = async () => {
+    if (!window._lastPdf) return;
+    const f = new File([window._lastPdf.blob], window._lastPdf.fname, { type: 'application/pdf' });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) {
+      try { await navigator.share({ files: [f] }); } catch (e) {}
+    } else { downloadFallback(window._lastPdf.blob, window._lastPdf.fname); }
+  };
 
   // ---------- mailing list store (on this device) ----------
   const MLKEY = 'akt-mailing-list';
