@@ -565,7 +565,23 @@
   }
   function updateMlCount() { document.getElementById('mlExport').textContent = 'Mailing List (' + mlLoad().length + ')'; }
   updateMlCount();
+  // press-and-hold the mailing list link for 2s to erase the stored list (admin only)
+  let mlHold = null, mlWiped = false;
+  const mlBtn = document.getElementById('mlExport');
+  mlBtn.addEventListener('pointerdown', () => {
+    mlWiped = false;
+    mlHold = setTimeout(() => {
+      if (confirm('Erase the entire mailing list stored on this device?')) {
+        localStorage.removeItem(MLKEY);
+        updateMlCount();
+      }
+      mlWiped = true;
+    }, 2000);
+  });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => mlBtn.addEventListener(ev, () => clearTimeout(mlHold)));
+
   document.getElementById('mlExport').onclick = async () => {
+    if (mlWiped) { mlWiped = false; return; }
     const list = mlLoad();
     if (!list.length) return;
     const groups = { Valdez: [], Alaska: [], Out_of_State: [] };
