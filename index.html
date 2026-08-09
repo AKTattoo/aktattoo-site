@@ -112,7 +112,7 @@
             object-fit: cover;
             object-position: center;
             opacity: 0;
-            transition: opacity 0.9s ease-in-out;
+            transition: opacity 0.45s ease-in-out;
         }
 
         /* Photos fit the space — whole image visible, never cropped */
@@ -672,6 +672,41 @@
             filter: grayscale(80%) invert(90%);
         }
 
+        /* ── TATTOOING IN ACTION ── */
+        .action-video-section {
+            padding: 60px 0 70px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .action-videos {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            padding: 0 40px;
+            margin-top: 24px;
+        }
+
+        .action-video {
+            display: block;
+            width: 100%;
+            max-width: 720px;
+            border: 1px solid var(--border);
+        }
+
+        .action-video.portrait { max-width: 400px; }
+
+        @media (max-width: 900px) {
+            /* Full-bleed on phones — video fills the screen edge to edge */
+            .action-videos { padding: 0; gap: 32px; }
+            .action-video, .action-video.portrait {
+                max-width: 100%;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
         /* ── STUDIO VIDEO ── */
         .video-section {
             padding: 80px 40px;
@@ -775,19 +810,44 @@
     <!-- ── HERO ── -->
     <section class="hero">
         <div class="hero-media">
-            <img class="hero-slide active" src="tattoos/006_Holly.BUTTERFLY.FLORAL.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Butterfly Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="tattoos/007_Color-Poppy-Floral-Shoulder-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Poppy Floral Shoulder Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="tattoos/001_bio.sleeve.dmt.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Bio Sleeve DMT Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="tattoos/008_Color-Alaska-Wild-Rose-Pine-Cone-Floral-Thigh-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Color Alaska Wild Rose Pine Cone Floral Thigh Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="tattoos/009_AKTATTOO_Anchorage_Alaska_Color-Fish-Calf.jpg" alt="Color Fish Calf Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="tattoos/037_Neo-Traditional-Pink-Magnolia-Floral-Tattoo-Kevin-Harden-AKTattoo-Anchorage-Alaska.jpg" alt="Neo-Traditional Pink Magnolia Floral Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="tattoos/003_cthullu.bio.Alaska.tattoo.AKTATTOO.anchorage.studio.jpg" alt="Cthulhu Bio Tattoo Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="artwork/005_Color.Japanese.Salmon.Waves.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Japanese Salmon Waves Color Artwork Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="artwork/008_Color.biomech_antlers_surreal_neopsychadelic_.Sleeve.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Biomech Antlers Surreal Sleeve Design Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="artwork/0016_Color.Antler.Biomech.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Antler Biomech Color Design Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="artwork/0014_Color.Surreal.wood_sleeve_original_.Psychedelic.Design.Alaska.tattoo.AKTATTOO.anchorage.Kevin.Harden.jpg" alt="Surreal Wood Psychedelic Sleeve Original Design Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="artwork/0027_aktattoo_anchorage_alaska_dmt_biomechanical_kevin_Harden.jpg" alt="DMT Biomechanical Artwork Kevin Harden AK Tattoo Anchorage Alaska">
-            <img class="hero-slide" src="artwork/0034_Organica.06.jpg" alt="Organica Artwork Kevin Harden AK Tattoo Anchorage Alaska">
+            <img class="hero-slide active" src="slides/001_KEVIN.5.jpg" alt="Kevin Harden — AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="slides/002_KEVMIK-1.jpg" alt="Kevin and Mik — AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" src="slides/003_temple.jpg" alt="Temple Drake — Kevin Harden's tattoo mentor">
+            <img class="hero-slide" data-src="slides/004_TEMPLE_DA_BIRD.jpg" alt="Temple Drake — Da Bird">
+            <img class="hero-slide" data-src="slides/005_AARON_CAIN_001.jpg" alt="Aaron Cain — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/006_AARON_CAIN_002.jpg" alt="Aaron Cain — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/007_AARON_CAIN_003.jpg" alt="Aaron Cain — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/008_DRAWIN-1.jpg" alt="Drawing session — AK Tattoo">
+            <img class="hero-slide" data-src="slides/009_FILIP_LEU_001.jpg" alt="Filip Leu — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0010FILIP_LEU_002.jpg" alt="Filip Leu — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0011_LEU-FAMILY.jpg" alt="Leu Family — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0012_Kevin.selfie.jpg" alt="Kevin Harden selfie — AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" data-src="slides/0013_Skottie_Young.jpg" alt="Skottie Young — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0014_Kevin_Harden_Ronin.jpg" alt="Kevin Harden — Ronin">
+            <img class="hero-slide" data-src="slides/0015_Nikki_Sixx.jpg" alt="Nikki Sixx — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0016_KATVOND_HELLCITY.jpg" alt="Kat Von D at Hell City — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0017_SCOTTY_ACE_LOWE.jpg" alt="Scotty Ace Lowe — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0018_Scotty_Ace_Lowe.jpg" alt="Scotty Ace Lowe — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0019_Shotsie_Crew.jpg" alt="Shotsie crew — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0020_DUTCHMAN.jpg" alt="Dutchman — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0021_Ronin_Triple_Tongue.jpg" alt="Ronin Triple Tongue">
+            <img class="hero-slide" data-src="slides/0022_KEVIN_AKTattoo.jpg" alt="Kevin Harden at AK Tattoo Anchorage Alaska">
+            <img class="hero-slide" data-src="slides/0023_KEVIN_CAT_ENIGMA.jpg" alt="Kevin with cat Enigma">
+            <img class="hero-slide" data-src="slides/0024-MARIAS.jpg" alt="Maria's — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0025_Kevin_Woods.jpg" alt="Kevin — woods">
+            <img class="hero-slide" data-src="slides/0026_MickFromZurich.jpg" alt="Mick from Zurich — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0027_FRANK_FRAZETTA.jpg" alt="Frank Frazetta — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0028_GasMask.jpg" alt="Gas mask — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0029_JOE_ROGAN.jpg" alt="Joe Rogan — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0030_GYMCOACH.jpg" alt="Gym coach — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0031_ALEX_GREY.jpg" alt="Alex Grey — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0032_Stumped.jpg" alt="Stumped — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0033_Nick.jpg" alt="Nick — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0034_HANKY_PANKY.jpg" alt="Hanky Panky — AK Tattoo memories">
+            <img class="hero-slide" data-src="slides/0035_EarlyDays.jpg" alt="Early days — Kevin Harden tattooing">
+            <img class="hero-slide" data-src="slides/0036_workin.jpg" alt="Workin — Kevin Harden tattooing">
+            <img class="hero-slide" data-src="slides/0037_AKTATTOO_STATION.jpg" alt="AK Tattoo station — Anchorage Alaska">
+            <img class="hero-slide" data-src="slides/0038_AKT.LOGO.Web.png" alt="AK Tattoo logo — Anchorage Alaska">
         </div>
         <div class="hero-content">
             <img src="AKT.LOGO.Web.png" alt="AK Tattoo Anchorage Alaska">
@@ -983,6 +1043,16 @@
         </div>
         <div style="text-align:center; margin-top: 32px;">
             <a href="tattoos.html" class="btn btn-orange" style="display:inline-block; color:#000;">SEE THE FULL TATTOO PORTFOLIO &nbsp;→</a>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ── TATTOOING IN ACTION ── -->
+    <section class="action-video-section" id="in-action">
+        <span class="section-label" style="text-align:center;">Tattooing in Action</span>
+        <div class="action-videos">
+            <video class="action-video portrait" muted loop playsinline controls preload="metadata" src="video_flower_thigh.mp4#t=0.1"></video>
         </div>
     </section>
 
@@ -1301,14 +1371,37 @@
         var slides = document.querySelectorAll('.hero .hero-slide');
         if (slides.length < 2) return;
         var idx = 0;
-        var IMAGE_HOLD = 4200;   // how long each photo stays up
+        var IMAGE_HOLD = 2000;   // how long each photo stays up
+
+        // Lazy-load: slides carry data-src; fetch a couple of slides ahead
+        function hydrate(i) {
+            var s = slides[i % slides.length];
+            if (s.dataset && s.dataset.src && !s.getAttribute('src')) {
+                s.src = s.dataset.src;
+            }
+        }
+        hydrate(1); hydrate(2); hydrate(3);
 
         function next() {
             slides[idx].classList.remove('active');
             idx = (idx + 1) % slides.length;
             slides[idx].classList.add('active');
+            hydrate(idx + 1); hydrate(idx + 2);
         }
         setInterval(next, IMAGE_HOLD);
+    })();
+
+    // ── Action videos: play when scrolled into view, pause when not ──
+    (function() {
+        var vids = document.querySelectorAll('.action-video');
+        if (!vids.length || !('IntersectionObserver' in window)) return;
+        var vo = new IntersectionObserver(function(entries) {
+            entries.forEach(function(en) {
+                if (en.isIntersecting) { en.target.play().catch(function(){}); }
+                else { en.target.pause(); }
+            });
+        }, {threshold: 0.35});
+        vids.forEach(function(v) { vo.observe(v); });
     })();
 
     // ── FAQ accordion ──
