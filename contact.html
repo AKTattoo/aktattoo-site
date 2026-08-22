@@ -365,8 +365,9 @@
         Kevin will personally review it and reach out to you.
     </p>
 
-    <form name="tattoo-consultation" method="POST" action="/success.html" data-netlify="true" enctype="multipart/form-data" >
+    <form name="tattoo-consultation" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" >
         <input type="hidden" name="form-name" value="tattoo-consultation">
+        <p style="display:none;" aria-hidden="true"><label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <input type="hidden" name="Name" id="combined-name">
 
 
@@ -422,7 +423,7 @@
 
             <!-- Style -->
             <div class="form-group full">
-                <label>Style</label>
+                <label>Style *</label>
                 <div class="check-group">
                     <label class="check-item"><input type="checkbox" name="Style" value="Line Work"> Line Work</label>
                     <label class="check-item"><input type="checkbox" name="Style" value="Black & Grey"> Black &amp; Grey</label>
@@ -434,15 +435,15 @@
 
             <!-- Availability -->
             <div class="form-group full">
-                <label>Days &amp; Times That Work Best</label>
-                <input type="text" id="availability" name="Days" placeholder="Wednesdays at noon, Fridays after 4pm…">
+                <label>Days &amp; Times That Work Best *</label>
+                <input type="text" id="availability" name="Days" required placeholder="Wednesdays at noon, Fridays after 4pm…">
             </div>
 
             <!-- Reply Preference -->
             <div class="form-group full">
-                <label>Preferred Reply Method</label>
+                <label>Preferred Reply Method *</label>
                 <div class="check-group">
-                    <label class="check-item"><input type="radio" name="Reply" value="Call"> Call</label>
+                    <label class="check-item"><input type="radio" name="Reply" value="Call" required> Call</label>
                     <label class="check-item"><input type="radio" name="Reply" value="Text"> Text</label>
                     <label class="check-item"><input type="radio" name="Reply" value="Email"> Email</label>
                 </div>
@@ -453,7 +454,7 @@
 
             <!-- File Upload -->
             <div class="form-group full">
-                <label>Upload Reference Images</label>
+                <label>Upload Reference Images (Optional)</label>
                 <div class="upload-zone" id="upload-zone">
                     <input type="file" name="Reference" id="file-input" accept="image/*" multiple>
                     <div class="upload-icon">📎</div>
@@ -502,6 +503,15 @@
                    : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3)
                    : d;
     });
+
+    // Require at least one Style checkbox
+    var styleBoxes = Array.from(document.querySelectorAll('input[name="Style"]'));
+    function checkStyles() {
+        var any = styleBoxes.some(function(b) { return b.checked; });
+        styleBoxes[0].setCustomValidity(any ? '' : 'Please select at least one style.');
+    }
+    styleBoxes.forEach(function(b) { b.addEventListener('change', checkStyles); });
+    checkStyles();
 
     // Prevent double-submission (disable button + show feedback)
     document.querySelector('form[name="tattoo-consultation"]').addEventListener('submit', function() {
