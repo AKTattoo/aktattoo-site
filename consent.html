@@ -78,9 +78,23 @@
     padding: 10px 22px; font-size: 16px; font-weight: 600;
     border: 1.5px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--dim);
   }
-  #photoYes, #mailYes { background: #2ecc5e; border-color: #2ecc5e; color: #000; }
-  #photoNo, #mailNo { background: #d32f2f; border-color: #d32f2f; color: #fff; }
-  #photoYes.dim, #photoNo.dim, #mailYes.dim, #mailNo.dim { background: var(--bg); border-color: var(--line); color: var(--dim); }
+  #photoYes, #mailYes, #condYes, #medYes, #algYes { background: #2ecc5e; border-color: #2ecc5e; color: #000; }
+  #photoNo, #mailNo, #condNo, #medNo, #algNo { background: #d32f2f; border-color: #d32f2f; color: #fff; }
+  #photoYes.dim, #photoNo.dim, #mailYes.dim, #mailNo.dim,
+  #condYes.dim, #condNo.dim, #medYes.dim, #medNo.dim, #algYes.dim, #algNo.dim { background: var(--bg); border-color: var(--line); color: var(--dim); }
+  .hgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 0 0 14px; }
+  .hitem { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; font-size: 15px; }
+  .hitem .box { width: 28px; height: 28px; border: 2px solid var(--dim); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; color: transparent; }
+  .hitem.sel { border-color: var(--ok); }
+  .hitem.sel .box { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .hitem.other { grid-column: 1 / -1; }
+  .hitem.other input { flex: 1; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; color: var(--ink); padding: 8px; font-size: 15px; }
+  @media (max-width: 500px) { .hgrid { grid-template-columns: 1fr; } }
+  #reviewOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.94); z-index: 50; padding: 16px; overflow: auto; }
+  #reviewOverlay .rbox { max-width: 620px; margin: 40px auto; background: #0d0d0d; border: 2px solid var(--ok); border-radius: 12px; padding: 20px; }
+  #reviewOverlay h3 { color: var(--ok); text-align: center; font-size: 18px; letter-spacing: 2px; margin-bottom: 12px; }
+  .flagline { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 8px 0; font-size: 15px; }
+  .flagline b { color: var(--ok); }
   .sigwrap { border: 1.5px dashed #666; border-radius: 8px; background: #0d0d0d; position: relative; }
   canvas.sig { width: 100%; height: 150px; display: block; touch-action: none; border-radius: 8px; }
   .sigbar { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
@@ -131,7 +145,7 @@
   <div class="full"><label>Street Address *</label><input type="text" id="address" autocomplete="off"></div>
   <div><label>City *</label><input type="text" id="city" autocomplete="off"></div>
   <div style="display:grid; grid-template-columns: 1fr 1.4fr; gap:10px;">
-    <div><label>State *</label><input type="text" id="state" value="AK" autocomplete="off"></div>
+    <div><label>State *</label><select id="state"></select></div>
     <div><label>Zip *</label><input type="text" id="zip" autocomplete="off"></div>
   </div>
 </div>
@@ -176,6 +190,32 @@
   </div>
 </div>
 
+<h2>Medical</h2>
+
+<div class="toggle-row" id="condRow">
+  <span><strong style="color:var(--ok);">MEDICAL CONDITIONS:</strong> Do you have any Medical Conditions?</span>
+  <span class="toggle-btns"><button type="button" id="condYes">YES</button><button type="button" id="condNo">NO</button></span>
+</div>
+<div class="hgrid" id="condGrid">
+  <div class="hitem other"><div class="box">&#10003;</div>Other:&nbsp;<input type="text" id="condOther" autocomplete="off" placeholder="type here"></div>
+</div>
+
+<div class="toggle-row" id="medRow">
+  <span><strong style="color:var(--ok);">MEDICATIONS:</strong> Are you taking any of these medications?</span>
+  <span class="toggle-btns"><button type="button" id="medYes">YES</button><button type="button" id="medNo">NO</button></span>
+</div>
+<div class="hgrid" id="medGrid">
+  <div class="hitem other"><div class="box">&#10003;</div>Other:&nbsp;<input type="text" id="medOther" autocomplete="off" placeholder="type here"></div>
+</div>
+
+<div class="toggle-row" id="algRow">
+  <span><strong style="color:var(--ok);">ALLERGIES:</strong> Do you have any Allergies?</span>
+  <span class="toggle-btns"><button type="button" id="algYes">YES</button><button type="button" id="algNo">NO</button></span>
+</div>
+<div class="hgrid" id="algGrid">
+  <div class="hitem other"><div class="box">&#10003;</div>Other:&nbsp;<input type="text" id="algOther" autocomplete="off" placeholder="type here"></div>
+</div>
+
 <div class="toggle-row" id="photoRow">
   <span><strong style="color:var(--ok);">Photo Release:</strong> I release all rights to photographs taken of me and the tattoo and consent to their reproduction in print or electronic form.</span>
   <span class="toggle-btns">
@@ -212,13 +252,12 @@
 <h2>Certification &amp; Client Signature</h2>
 <p class="certify">By my signature below, I certify that I am 18 years of age or older and have provided valid proof of age; that I am not under the influence of alcohol or drugs; and that I am competent to sign this Agreement. I understand that providing false information or false documents as to my name and/or age makes me liable for prosecution. I have been given the opportunity to ask any and all questions about obtaining a tattoo, and all my questions have been answered to my full satisfaction.</p>
 
-<div class="sigwrap"><canvas class="sig" id="clientSig"></canvas></div>
-<div class="sigbar"><small>Client — Sign your name above.</small><button type="button" class="clearbtn" data-clear="clientSig">Clear</button></div>
+<label style="margin-bottom:6px;">Client Signature — type your full legal name *</label>
+<input type="text" id="typedSig" autocomplete="off" placeholder="/s/ Full Name" style="text-align:center; font-style:italic; font-size:22px; padding:16px;">
 
 <div id="artistSection">
   <h2 style="font-size:20px; font-weight:800; letter-spacing:2.5px;">ARTIST SIGNATURE</h2>
-  <div class="sigwrap"><canvas class="sig" id="artistSig" style="height:130px;"></canvas></div>
-  <div class="sigbar"><small>Artist — Kevin Harden</small><button type="button" class="clearbtn" data-clear="artistSig">Clear</button></div>
+  <input type="text" id="artistTyped" autocomplete="off" value="/s/ Kevin Harden" style="text-align:center; font-style:italic; font-size:22px; padding:16px;">
 
   <button type="button" class="bigbtn" id="savePdf">UPLOAD</button>
 </div>
@@ -229,6 +268,15 @@
   <p id="doneDetail" style="margin:10px 0; color:var(--dim);"></p>
   <button type="button" class="bigbtn" onclick="location.reload()">START NEW FORM</button>
   <button type="button" class="bigbtn" id="shareBackup" style="background:var(--panel); color:var(--ink); border:1px solid var(--line);">BACKUP: SHARE THIS PDF</button>
+</div>
+
+<div id="reviewOverlay">
+  <div class="rbox">
+    <h3>&#9888; REVIEW WITH CLIENT</h3>
+    <div id="reviewFlags"></div>
+    <button type="button" class="bigbtn" id="reviewContinue">REVIEWED WITH CLIENT — CONTINUE</button>
+    <button type="button" class="bigbtn" id="reviewBack" style="background:none; border:1px solid var(--line); color:var(--dim);">GO BACK</button>
+  </div>
 </div>
 
 <p style="text-align:center; margin-top:34px;">
@@ -289,6 +337,16 @@
   }
   [dobM, dobD, dobY].forEach(s => s.addEventListener('change', () => { s.classList.remove('invalid'); updateAge(); }));
 
+  // typed e-signatures clear their missing highlight
+  ['typedSig', 'artistTyped'].forEach(id => document.getElementById(id).addEventListener('input', function () {
+    this.classList.remove('invalid');
+  }));
+
+  // ---------- state dropdown (AK default) ----------
+  const stateSel = document.getElementById('state');
+  'AK,AL,AR,AZ,CA,CO,CT,DC,DE,FL,GA,HI,IA,ID,IL,IN,KS,KY,LA,MA,MD,ME,MI,MN,MO,MS,MT,NC,ND,NE,NH,NJ,NM,NV,NY,OH,OK,OR,PA,RI,SC,SD,TN,TX,UT,VA,VT,WA,WI,WV,WY'.split(',').forEach(s => stateSel.add(new Option(s, s)));
+  stateSel.value = 'AK';
+
   // ---------- phone auto-format 555-555-5555 ----------
   const phoneEl = document.getElementById('phone');
   phoneEl.addEventListener('input', function () {
@@ -322,6 +380,63 @@
     img.src = URL.createObjectURL(f);
   });
 
+  // ---------- medical section ----------
+  const HEALTH_DEFS = [
+    { key: 'cond', label: 'MEDICAL CONDITIONS', items: ['Skin condition (in the tattoo area)', 'Diabetes', 'Staph / MRSA', 'Bleeding disorder / hemophilia', 'Prone to fainting', 'Hepatitis', 'Immune / autoimmune disorder', 'Heart condition', 'Epilepsy / seizures', 'HIV / AIDS', 'STDs (in the tattoo area)', 'Prone to scarring / keloiding'] },
+    { key: 'med', label: 'MEDICATIONS', items: ['Blood thinners', 'Steroids', 'Chemo / immunosuppressants'] },
+    { key: 'alg', label: 'ALLERGIES', items: ['Latex', 'Adhesives / bandages', 'Antibiotics / ointments', 'Soaps / cosmetics', 'Metals (nickel)'] }
+  ];
+  let healthReviewed = false;
+  const healthState = {};
+  HEALTH_DEFS.forEach(def => {
+    const grid = document.getElementById(def.key + 'Grid');
+    const yB = document.getElementById(def.key + 'Yes'), nB = document.getElementById(def.key + 'No');
+    const row = document.getElementById(def.key + 'Row');
+    const otherIn = document.getElementById(def.key + 'Other');
+    const otherRow = otherIn.closest('.hitem');
+    const st = { ans: null, checked: new Array(def.items.length).fill(false) };
+    healthState[def.key] = st;
+    const itemRows = [];
+    const setAns = (val) => {
+      st.ans = val;
+      yB.className = val === 'YES' ? '' : 'dim';
+      nB.className = val === 'NO' ? '' : 'dim';
+      row.classList.remove('missing');
+      healthReviewed = false;
+      if (val === 'NO') {
+        st.checked.fill(false);
+        itemRows.forEach(r => r.classList.remove('sel'));
+        otherIn.value = '';
+        otherRow.classList.remove('sel');
+      }
+    };
+    def.items.forEach((txt, i) => {
+      const d = document.createElement('div');
+      d.className = 'hitem';
+      d.innerHTML = '<div class="box">&#10003;</div><div>' + txt + '</div>';
+      d.onclick = () => {
+        st.checked[i] = !st.checked[i];
+        d.classList.toggle('sel', st.checked[i]);
+        if (st.checked[i]) setAns('YES');
+        healthReviewed = false;
+      };
+      itemRows.push(d);
+      grid.insertBefore(d, otherRow);
+    });
+    yB.onclick = () => setAns('YES');
+    nB.onclick = () => setAns('NO');
+    otherIn.addEventListener('input', () => {
+      otherRow.classList.toggle('sel', !!otherIn.value.trim());
+      if (otherIn.value.trim()) setAns('YES');
+      healthReviewed = false;
+    });
+    st.list = () => {
+      const out = def.items.filter((t, i) => st.checked[i]);
+      if (otherIn.value.trim()) out.push('Other: ' + otherIn.value.trim());
+      return out;
+    };
+  });
+
   // ---------- photo toggle ----------
   let photoConsent = null;
   const yBtn = document.getElementById('photoYes'), nBtn = document.getElementById('photoNo');
@@ -339,43 +454,6 @@
   foundUs.addEventListener('change', () => {
     referralName.style.display = foundUs.value === 'Referral' ? 'block' : 'none';
   });
-
-  // ---------- signature pads (white ink on dark screen; exported black for PDF) ----------
-  function makePad(id) {
-    const c = document.getElementById(id), ctx = c.getContext('2d');
-    let drawn = false, drawing = false;
-    function resize() {
-      const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
-      const img = drawn ? c.toDataURL() : null;
-      c.width = r.width * dpr; c.height = r.height * dpr;
-      ctx.scale(dpr, dpr); ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.strokeStyle = '#f2f2f2';
-      if (img) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, r.width, r.height); im.src = img; }
-    }
-    resize(); window.addEventListener('resize', resize);
-    function pos(e) { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
-    c.addEventListener('pointerdown', (e) => { e.preventDefault(); drawing = true; drawn = true; c.parentElement.classList.remove('missing'); const [x, y] = pos(e); ctx.beginPath(); ctx.moveTo(x, y); });
-    c.addEventListener('pointermove', (e) => { if (!drawing) return; e.preventDefault(); const [x, y] = pos(e); ctx.lineTo(x, y); ctx.stroke(); });
-    ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => c.addEventListener(ev, () => { drawing = false; }));
-    return {
-      isEmpty: () => !drawn,
-      dims: () => ({ w: c.width, h: c.height }),
-      clear: () => { const r = c.getBoundingClientRect(); ctx.clearRect(0, 0, r.width, r.height); drawn = false; },
-      // invert to black-on-transparent for the printed PDF
-      data: () => {
-        const out = document.createElement('canvas');
-        out.width = c.width; out.height = c.height;
-        const octx = out.getContext('2d');
-        octx.drawImage(c, 0, 0);
-        const d = octx.getImageData(0, 0, out.width, out.height);
-        for (let p = 0; p < d.data.length; p += 4) {
-          if (d.data[p + 3] > 0) { d.data[p] = 17; d.data[p + 1] = 17; d.data[p + 2] = 17; }
-        }
-        octx.putImageData(d, 0, 0);
-        return out.toDataURL('image/png');
-      }
-    };
-  }
-  const pads = { clientSig: makePad('clientSig'), artistSig: makePad('artistSig') };
 
   // ---------- aftercare acknowledgment ----------
   let aftercareOk = false;
@@ -406,8 +484,19 @@
       if (!checked[i]) { row.classList.add('missing'); problems.push(row); }
     });
     if (!aftercareOk) { ackRow.classList.add('missing'); problems.push(ackRow); }
+    HEALTH_DEFS.forEach(def => {
+      const st = healthState[def.key];
+      const row = document.getElementById(def.key + 'Row');
+      if (st.ans === null || (st.ans === 'YES' && st.list().length === 0)) {
+        row.classList.add('missing'); problems.push(row);
+      }
+    });
     if (photoConsent === null) { const pr = document.getElementById('photoRow'); pr.classList.add('missing'); problems.push(pr); }
-    if (pads.clientSig.isEmpty()) { const w = document.getElementById('clientSig').parentElement; w.classList.add('missing'); problems.push(w); }
+    if (!document.getElementById('typedSig').value.trim()) {
+      const t = document.getElementById('typedSig');
+      t.classList.add('invalid');
+      problems.push(t);
+    }
     if (problems.length) { problems[0].scrollIntoView({ behavior: 'smooth', block: 'center' }); return false; }
     return true;
   }
@@ -415,10 +504,17 @@
   // ---------- PDF (black on white, condensed) ----------
   document.getElementById('savePdf').onclick = async function () {
     if (!validate()) return;
-    if (pads.artistSig.isEmpty()) {
-      const w = document.getElementById('artistSig').parentElement;
-      w.classList.add('missing');
-      w.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!document.getElementById('artistTyped').value.trim()) {
+      const t = document.getElementById('artistTyped');
+      t.classList.add('invalid');
+      t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    const healthFlags = HEALTH_DEFS.map(d => ({ label: d.label, items: healthState[d.key].list() })).filter(f => f.items.length);
+    if (healthFlags.length && !healthReviewed) {
+      document.getElementById('reviewFlags').innerHTML = healthFlags.map(f =>
+        '<div class="flagline"><b>' + f.label + ':</b> ' + f.items.join(', ') + '</div>').join('');
+      document.getElementById('reviewOverlay').style.display = 'block';
       return;
     }
     const v = (id) => document.getElementById(id).value.trim();
@@ -477,6 +573,12 @@
     line('[X] I have received and read the aftercare instructions above. — checked by client', 8, 'bold', 11);
     line('Questions? AK Tattoo LLC · 409 W Northern Lights #2, Anchorage, AK 99503 · (907) 365-9410 · AKTattoo.ink', 7.5, 'normal', 11);
 
+    sect('MEDICAL');
+    HEALTH_DEFS.forEach(d => {
+      const st = healthState[d.key];
+      line(d.label + ': ' + (st.ans === 'YES' ? 'YES — ' + st.list().join(', ') : 'NO'), 8, 'bold', 11.5);
+    });
+
     y += 4;
     line('[' + (photoConsent === 'YES' ? 'X] PHOTO RELEASE: YES' : ' ] PHOTO RELEASE: DECLINED') + ' — reproduction of photographs of the tattoo in print or electronic form.', 8, 'bold', 11.5);
     if (mailList) line('MAILING LIST: ' + mailList + (mailList === 'YES' ? ' — ' + v('email') : ''), 8, 'bold', 11.5);
@@ -485,20 +587,18 @@
     sect('CERTIFICATION');
     line(document.querySelector('.certify').textContent.trim(), 7.5, 'normal', 9.6);
 
-    const sigBlock = (pad, label, x) => {
-      const d = pad.dims();
-      const sw = 220, sh = Math.min(sw * d.h / d.w, 70);
+    ensure(120); y += 14;
+    const eSig = (label, name, x) => {
       doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5);
       doc.text(label, x, y);
-      doc.addImage(pad.data(), 'PNG', x, y + 6, sw, sh);
+      doc.setFont('helvetica', 'italic'); doc.setFontSize(15);
+      doc.text('/s/ ' + name.replace(/^\/s\/\s*/i, ''), x, y + 30);
       doc.setFont('helvetica', 'normal'); doc.setFontSize(7.5);
-      doc.text('signed ' + stamp, x, y + sh + 17);
-      return sh;
+      doc.text('signed ' + stamp, x, y + 47);
     };
-    ensure(120); y += 14;
-    const shA = sigBlock(pads.clientSig, 'CLIENT SIGNATURE', M);
-    const shB = sigBlock(pads.artistSig, 'ARTIST — KEVIN HARDEN', M + 275);
-    y += Math.max(shA, shB) + 30;
+    eSig('CLIENT SIGNATURE (electronic)', v('typedSig'), M);
+    eSig('ARTIST SIGNATURE (electronic)', v('artistTyped'), M + 275);
+    y += 70;
 
     const iso = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
     const fname = iso + '_' + v('firstName') + '_' + v('lastName') + '.pdf';
@@ -536,6 +636,16 @@
     a.href = URL.createObjectURL(blob); a.download = fname;
     document.body.appendChild(a); a.click(); a.remove();
   }
+
+  // ---------- health review overlay buttons ----------
+  document.getElementById('reviewContinue').onclick = () => {
+    healthReviewed = true;
+    document.getElementById('reviewOverlay').style.display = 'none';
+    document.getElementById('savePdf').click();
+  };
+  document.getElementById('reviewBack').onclick = () => {
+    document.getElementById('reviewOverlay').style.display = 'none';
+  };
 
   // ---------- backup share from done screen ----------
   document.getElementById('shareBackup').onclick = async () => {
