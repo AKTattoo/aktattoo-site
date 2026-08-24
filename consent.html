@@ -270,6 +270,15 @@
   <button type="button" class="bigbtn" id="shareBackup" style="background:var(--panel); color:var(--ink); border:1px solid var(--line);">BACKUP: SHARE THIS PDF</button>
 </div>
 
+<div id="camModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:60; padding:16px; overflow:auto;">
+  <div style="max-width:720px; margin:20px auto; text-align:center;">
+    <p style="color:var(--dim); margin-bottom:10px;">Hold the ID close to the camera, flat and steady.</p>
+    <video id="camVideo" autoplay playsinline style="width:100%; border-radius:8px; background:#111;"></video>
+    <button type="button" class="bigbtn" id="camSnap">&#128247; SNAP ID PHOTO</button>
+    <button type="button" class="bigbtn" id="camCancel" style="background:none; border:1px solid var(--line); color:var(--dim);">CANCEL</button>
+  </div>
+</div>
+
 <div id="reviewOverlay">
   <div class="rbox">
     <h3>&#9888; REVIEW WITH CLIENT</h3>
@@ -359,7 +368,40 @@
   // ---------- ID capture ----------
   let idData = null, idW = 0, idH = 0;
   const idBtn = document.getElementById('idBtn'), idFile = document.getElementById('idFile'), idPrev = document.getElementById('idPreview');
-  idBtn.onclick = () => idFile.click();
+  const IS_TOUCH_APPLE = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  let camStream = null;
+  function stopCam() {
+    if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
+    document.getElementById('camModal').style.display = 'none';
+  }
+  idBtn.onclick = async () => {
+    // desktop: use the built-in webcam; iPad/iPhone: native camera via file input
+    if (!IS_TOUCH_APPLE && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        camStream = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 } } });
+        document.getElementById('camVideo').srcObject = camStream;
+        document.getElementById('camModal').style.display = 'block';
+        return;
+      } catch (e) { /* camera denied/unavailable — fall back to file picker */ }
+    }
+    idFile.click();
+  };
+  document.getElementById('camSnap').onclick = () => {
+    const vid = document.getElementById('camVideo');
+    if (!vid.videoWidth) return;
+    const cv = document.createElement('canvas');
+    const maxW = 900, scale = Math.min(1, maxW / vid.videoWidth);
+    cv.width = Math.round(vid.videoWidth * scale); cv.height = Math.round(vid.videoHeight * scale);
+    cv.getContext('2d').drawImage(vid, 0, 0, cv.width, cv.height);
+    idData = cv.toDataURL('image/jpeg', 0.72);
+    idW = cv.width; idH = cv.height;
+    idPrev.src = idData; idPrev.style.display = 'block';
+    idBtn.textContent = '✓ ID CAPTURED — TAP TO RETAKE';
+    idBtn.classList.remove('missing-btn');
+    idBtn.style.borderColor = 'var(--ok)'; idBtn.style.color = 'var(--ok)';
+    stopCam();
+  };
+  document.getElementById('camCancel').onclick = stopCam;
   idFile.addEventListener('change', function () {
     const f = this.files && this.files[0];
     if (!f) return;
