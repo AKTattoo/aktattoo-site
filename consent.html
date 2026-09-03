@@ -267,7 +267,6 @@
   <h2>&#10003; Form Saved</h2>
   <p id="doneDetail" style="margin:10px 0; color:var(--dim);"></p>
   <button type="button" class="bigbtn" onclick="location.reload()">START NEW FORM</button>
-  <button type="button" class="bigbtn" id="shareBackup" style="background:var(--panel); color:var(--ink); border:1px solid var(--line);">BACKUP: SHARE THIS PDF</button>
 </div>
 
 <div id="camModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:60; padding:16px; overflow:auto;">
@@ -648,7 +647,6 @@
     const fname = iso + '_' + v('firstName') + '_' + v('lastName') + '.pdf';
     const blob = doc.output('blob');
     const b64 = doc.output('datauristring').split(',')[1];
-    window._lastPdf = { blob: blob, fname: fname };
 
     // vault a copy on this device BEFORE any save attempt — survives failed downloads and form resets
     try {
@@ -693,16 +691,6 @@
   };
   document.getElementById('reviewBack').onclick = () => {
     document.getElementById('reviewOverlay').style.display = 'none';
-  };
-
-  // ---------- backup share from done screen ----------
-  document.getElementById('shareBackup').onclick = async () => {
-    if (!window._lastPdf) return;
-    const f = new File([window._lastPdf.blob], window._lastPdf.fname, { type: 'application/pdf' });
-    const touchApple = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
-    if (touchApple && navigator.canShare && navigator.canShare({ files: [f] })) {
-      try { await navigator.share({ files: [f] }); } catch (e) {}
-    } else { downloadFallback(window._lastPdf.blob, window._lastPdf.fname); }
   };
 
   // ---------- on-device PDF vault (last 10 uploads) ----------
