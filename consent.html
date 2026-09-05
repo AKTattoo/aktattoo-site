@@ -154,7 +154,7 @@
 <div class="grid">
   <div><label>Body Part / Location *</label><input type="text" id="bodyPart" autocomplete="off"></div>
   <div><label>Date</label><input type="text" id="sessionDate" readonly></div>
-  <div class="full"><label>Tattoo Description *</label><textarea id="description" rows="2"></textarea></div>
+  <div class="full"><label>Tattoo Description *</label><textarea id="description" rows="2" autocomplete="off"></textarea></div>
 </div>
 
 <h2>Consent &amp; Release</h2>
@@ -234,7 +234,7 @@
 
 <div class="toggle-row" style="flex-direction:column; align-items:stretch;" id="foundRow">
   <span><strong style="color:var(--ok);">HOW DID YOU FIND US?</strong></span>
-  <select id="foundUs" style="margin-top:10px;">
+  <select id="foundUs" autocomplete="off" style="margin-top:10px;">
     <option value="">Select&hellip;</option>
     <option>Google</option>
     <option>Google Maps</option>
@@ -496,6 +496,13 @@
   const foundUs = document.getElementById('foundUs'), referralName = document.getElementById('referralName');
   foundUs.addEventListener('change', () => {
     referralName.style.display = foundUs.value === 'Referral' ? 'block' : 'none';
+  });
+  // Safari restores form values on reload / back-forward cache; start these two fields clean every time
+  window.addEventListener('pageshow', () => {
+    document.getElementById('description').value = '';
+    foundUs.value = '';
+    referralName.value = '';
+    referralName.style.display = 'none';
   });
 
   // ---------- aftercare acknowledgment ----------
