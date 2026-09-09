@@ -102,6 +102,56 @@
             margin-bottom: 12px;
         }
 
+        /* ── ARTIST PICK ── */
+        .artist-pick {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin: 6px 0 36px;
+        }
+        .pick-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--white);
+            align-self: stretch;
+            margin-bottom: 8px;
+        }
+        .artist-btn {
+            display: block;
+            width: 78%;
+            max-width: 300px;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+        .artist-btn img { display: block; width: 100%; height: auto; }
+        .artist-btn:hover { transform: scale(1.03); }
+        .artist-pick.picked .artist-btn { opacity: 0.35; }
+        .artist-pick.picked .artist-btn.selected { opacity: 1; }
+        .artist-pick.shake { animation: shake 0.4s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .lock-note {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--orange);
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        form.locked .form-fields { opacity: 0.3; pointer-events: none; }
+        form.locked { cursor: pointer; }
+        .form-fields { border: none; padding: 0; margin: 0; min-width: 0; }
+
         .page-sub {
             font-size: 0.9rem;
             color: var(--gray);
@@ -186,19 +236,61 @@
         }
 
         /* ── FILE UPLOAD ── */
-        .upload-zone {
-            border: 2px dashed #2a2a2a;
+        .upload-label { font-size: 0.95rem; letter-spacing: 0.2em; }
+        .upload-help {
+            border-left: 3px solid var(--orange);
+            padding: 12px 16px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--white);
+        }
+        .upload-help ol { padding-left: 22px; margin: 0; }
+        .upload-help strong { color: var(--white); font-weight: 800; }
+        .upload-help .word-green { color: #39ff5a; }
+        .upload-help .word-red { color: #ff2e2e; }
+
+        .upload-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border: 1px solid var(--orange-dim);
             border-radius: 4px;
-            padding: 30px;
-            text-align: center;
-            transition: border-color 0.2s;
-            cursor: pointer;
+            padding: 14px 14px;
+            background: #0a0a0a;
             position: relative;
         }
-
-        .upload-zone:hover { border-color: var(--orange); }
-
-        .upload-zone input[type="file"] {
+        .upload-row .upload-num {
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #3399ff;
+            white-space: nowrap;
+            flex: none;
+        }
+        .upload-row .upload-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .upload-row .upload-pick {
+            background: var(--orange);
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            cursor: pointer;
+            position: relative;
+            flex: none;
+        }
+        .upload-row .upload-pick:hover { background: var(--orange-dim); }
+        .upload-row input[type="file"] {
             position: absolute;
             inset: 0;
             opacity: 0;
@@ -206,28 +298,69 @@
             width: 100%;
             height: 100%;
         }
-
-        .upload-icon { font-size: 2rem; margin-bottom: 10px; }
-
-        .upload-text {
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--gray);
+        .upload-row .upload-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 3px;
+            object-fit: cover;
+            flex: none;
+            display: none;
+            background: #1a1a1a;
         }
-
-        .upload-sub {
-            font-size: 0.75rem;
-            color: #555;
-            margin-top: 6px;
+        .upload-row .upload-name {
+            font-size: 0.85rem;
+            color: #3399ff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+        .upload-row .upload-size {
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .upload-row .upload-clear {
+            display: none;
+            background: none;
+            border: none;
+            color: #777;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0 2px;
+            flex: none;
+        }
+        .upload-row.has-file .upload-pick { display: none; }
+        .upload-row.has-file .upload-thumb,
+        .upload-row.has-file .upload-clear { display: block; }
+        .upload-row.has-file .upload-name { color: var(--white); }
+        .upload-row.ok .upload-size { color: #5bd66b; }
+        .upload-row.bad { border-color: #5a1a1a; }
+        .upload-row.bad .upload-size { color: #ff4d4d; }
+        .upload-row.busy .upload-size { color: var(--gray); }
 
-        #file-name {
-            margin-top: 10px;
-            font-size: 0.8rem;
+        .upload-meter {
+            font-size: 0.85rem;
             color: var(--orange);
-            min-height: 18px;
+            display: flex;
+            justify-content: space-between;
         }
+        .upload-bar {
+            height: 4px;
+            background: #1c1c1c;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .upload-bar i { display: block; height: 100%; background: var(--orange); width: 0; transition: width 0.2s; }
+        .upload-bar.over i { background: #ff4d4d; }
+        .upload-warn {
+            display: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ff4d4d;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .upload-warn.show { display: block; }
 
         /* ── DIVIDER ── */
         .form-divider {
@@ -355,7 +488,15 @@
     <a href="index.html" class="back-link">← Back to Site</a>
 
     <span class="page-label">AK Tattoo · Anchorage, Alaska</span>
-    <h1>Book a Consultation</h1>
+
+    <div class="artist-pick" id="artist-pick">
+        <div class="pick-title">Pick an Artist</div>
+        <button type="button" class="artist-btn" data-artist="Kevin Harden"><img src="KEVIN_BUTTON.png" alt="Kevin"></button>
+        <a class="artist-btn" href="https://cadebennett.ink/"><img src="CADE_BUTTON.png" alt="Cade"></a>
+        <button type="button" class="artist-btn" data-artist="No Preference"><img src="NO_PREF_BUTTON.png" alt="No Preference"></button>
+    </div>
+
+    <h1>Book a Tattoo</h1>
     <p class="page-sub" style="font-size: 1.05rem; color: var(--light); line-height: 1.9;">
         <strong style="color: var(--white); font-size: 1.1rem;">Tell Me What You're Thinking</strong><br>
         Drop your idea below — the rougher the better.<br>
@@ -365,12 +506,15 @@
         Kevin will personally review it and reach out to you.
     </p>
 
-    <form name="tattoo-consultation" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" >
+    <form name="tattoo-consultation" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="locked">
         <input type="hidden" name="form-name" value="tattoo-consultation">
+        <input type="hidden" name="Artist" id="artist-field" value="">
+        <p class="lock-note" id="lock-note">&#8593; Pick an artist above to start</p>
         <p style="display:none;" aria-hidden="true"><label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
         <input type="hidden" name="Name" id="combined-name">
 
 
+        <fieldset class="form-fields" id="form-fields" disabled>
         <div class="form-grid">
 
             <!-- Name -->
@@ -397,17 +541,6 @@
 
             <hr class="form-divider">
 
-            <!-- Artist Request -->
-            <div class="form-group full">
-                <label>Artist Request</label>
-                <div class="check-group">
-                    <label class="check-item"><input type="radio" name="Artist" value="Kevin Harden"> Kevin Harden</label>
-                    <label class="check-item"><input type="radio" name="Artist" value="Cade Bennett"> Cade Bennett</label>
-                    <label class="check-item"><input type="radio" name="Artist" value="No Preference" checked> No Preference</label>
-                </div>
-            </div>
-
-            <hr class="form-divider">
 
             <!-- Tattoo Idea -->
             <div class="form-group full">
@@ -450,18 +583,59 @@
             </div>
 
             <hr class="form-divider">
-            <div class="section-label-sm">Reference Photos</div>
-
             <!-- File Upload -->
             <div class="form-group full">
-                <label>Upload Reference Images (Optional)</label>
-                <div class="upload-zone" id="upload-zone">
-                    <input type="file" name="Reference" id="file-input" accept="image/*" multiple>
-                    <div class="upload-icon">📎</div>
-                    <div class="upload-text">Tap to upload reference photos</div>
-                    <div class="upload-sub">JPG, PNG, HEIC accepted · Multiple files OK</div>
-                    <div id="file-name"></div>
+                <label class="upload-label">Reference Photos (Optional)</label>
+                <div class="upload-help">
+                    <ol>
+                        <li><strong>Crop</strong> your SCREENSHOT to just the tattoo.</li>
+                        <li><strong>Add</strong> up to 4 photos below.</li>
+                        <li><strong class="word-green">GREEN</strong> = Approved.<br><strong class="word-red">RED</strong> = Too big, crop photo smaller.</li>
+                    </ol>
                 </div>
+                <div class="upload-row" data-slot="1">
+                    <span class="upload-num">Photo 1</span>
+                    <span class="upload-pick">Choose photo<input type="file" name="Reference 1" accept="image/*"></span>
+                    <img class="upload-thumb" alt="">
+                    <span class="upload-info">
+                        <span class="upload-name">none yet</span>
+                        <span class="upload-size"></span>
+                    </span>
+                    <button type="button" class="upload-clear" aria-label="Remove photo 1">&#x2715;</button>
+                </div>
+                <div class="upload-row" data-slot="2">
+                    <span class="upload-num">Photo 2</span>
+                    <span class="upload-pick">Choose photo<input type="file" name="Reference 2" accept="image/*"></span>
+                    <img class="upload-thumb" alt="">
+                    <span class="upload-info">
+                        <span class="upload-name">none yet</span>
+                        <span class="upload-size"></span>
+                    </span>
+                    <button type="button" class="upload-clear" aria-label="Remove photo 2">&#x2715;</button>
+                </div>
+                <div class="upload-row" data-slot="3">
+                    <span class="upload-num">Photo 3</span>
+                    <span class="upload-pick">Choose photo<input type="file" name="Reference 3" accept="image/*"></span>
+                    <img class="upload-thumb" alt="">
+                    <span class="upload-info">
+                        <span class="upload-name">none yet</span>
+                        <span class="upload-size"></span>
+                    </span>
+                    <button type="button" class="upload-clear" aria-label="Remove photo 3">&#x2715;</button>
+                </div>
+                <div class="upload-row" data-slot="4">
+                    <span class="upload-num">Photo 4</span>
+                    <span class="upload-pick">Choose photo<input type="file" name="Reference 4" accept="image/*"></span>
+                    <img class="upload-thumb" alt="">
+                    <span class="upload-info">
+                        <span class="upload-name">none yet</span>
+                        <span class="upload-size"></span>
+                    </span>
+                    <button type="button" class="upload-clear" aria-label="Remove photo 4">&#x2715;</button>
+                </div>
+                <div class="upload-meter"><span id="upload-count">0 of 4 photos</span><span id="upload-total">0 MB of 8 MB</span></div>
+                <div class="upload-bar" id="upload-bar"><i></i></div>
+                <p class="upload-warn" id="upload-warn"></p>
             </div>
 
             <!-- Submit -->
@@ -471,6 +645,7 @@
             <p class="form-note">Kevin typically responds within 24–48 hours. Walk-ins always welcome.</p>
 
         </div>
+        </fieldset>
     </form>
 
     <div id="success-msg" class="success-msg" style="display:none;">
@@ -490,11 +665,123 @@
 </div>
 
 <script>
-    // Show selected file names
-    document.getElementById('file-input').addEventListener('change', function() {
-        var files = Array.from(this.files).map(f => f.name).join(', ');
-        document.getElementById('file-name').textContent = files || '';
+    // ── Artist pick: unlock the form once KEVIN or NO PREFERENCE is tapped ──
+    var pickWrap = document.getElementById('artist-pick');
+    var bookingForm = document.querySelector('form[name="tattoo-consultation"]');
+    pickWrap.querySelectorAll('button.artist-btn').forEach(function(b) {
+        b.addEventListener('click', function() {
+            document.getElementById('artist-field').value = b.dataset.artist;
+            pickWrap.classList.add('picked');
+            pickWrap.querySelectorAll('.artist-btn').forEach(function(x) { x.classList.remove('selected'); });
+            b.classList.add('selected');
+            document.getElementById('form-fields').disabled = false;
+            bookingForm.classList.remove('locked');
+            document.getElementById('lock-note').style.display = 'none';
+            document.querySelector('h1').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     });
+    bookingForm.addEventListener('click', function() {
+        if (!bookingForm.classList.contains('locked')) return;
+        pickWrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        pickWrap.classList.remove('shake'); void pickWrap.offsetWidth; pickWrap.classList.add('shake');
+    });
+
+    // ── Reference photos: 4 slots, shrink big images in the browser, block oversize ──
+    var LIMIT_TOTAL = 7.5 * 1024 * 1024;   // Netlify caps the whole request at 8 MB
+    var SHRINK_ABOVE = 1.2 * 1024 * 1024;  // resize anything bigger than this
+    var MAX_EDGE = 1600;
+    var uploadRows = Array.from(document.querySelectorAll('.upload-row'));
+
+    function mb(bytes) { return (bytes / 1048576).toFixed(1) + ' MB'; }
+
+    function shrinkImage(file) {
+        return new Promise(function(resolve) {
+            if (file.size <= SHRINK_ABOVE) return resolve(file);
+            var url = URL.createObjectURL(file);
+            var img = new Image();
+            img.onload = function() {
+                var w = img.naturalWidth, h = img.naturalHeight;
+                var scale = Math.min(1, MAX_EDGE / Math.max(w, h));
+                var c = document.createElement('canvas');
+                c.width = Math.round(w * scale); c.height = Math.round(h * scale);
+                c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+                URL.revokeObjectURL(url);
+                c.toBlob(function(blob) {
+                    if (!blob || blob.size >= file.size) return resolve(file);
+                    var name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+                    resolve(new File([blob], name, { type: 'image/jpeg' }));
+                }, 'image/jpeg', 0.85);
+            };
+            img.onerror = function() { URL.revokeObjectURL(url); resolve(file); };  // HEIC on Android etc.
+            img.src = url;
+        });
+    }
+
+    function setInputFile(input, file) {
+        try {
+            var dt = new DataTransfer();
+            dt.items.add(file);
+            input.files = dt.files;
+            return true;
+        } catch (e) { return false; }
+    }
+
+    function refreshMeter() {
+        var total = 0, count = 0, bad = false;
+        uploadRows.forEach(function(r) {
+            var f = r.querySelector('input[type="file"]').files[0];
+            if (f) { total += f.size; count++; }
+            if (r.classList.contains('bad')) bad = true;
+        });
+        document.getElementById('upload-count').textContent = count + ' of 4 photos';
+        document.getElementById('upload-total').textContent = mb(total) + ' of 8 MB';
+        var bar = document.getElementById('upload-bar');
+        bar.querySelector('i').style.width = Math.min(100, total / (8 * 1048576) * 100) + '%';
+        var over = total > LIMIT_TOTAL;
+        bar.classList.toggle('over', over || bad);
+        var warn = document.getElementById('upload-warn');
+        warn.textContent = bad ? 'A photo in RED is too big to send. Crop it smaller or remove it.'
+                         : over ? 'Photos add up to more than 8 MB. Remove one or crop them smaller.' : '';
+        warn.classList.toggle('show', bad || over);
+        var btn = document.querySelector('.btn-submit');
+        if (btn && !btn.dataset.sending) btn.disabled = bad || over;
+    }
+
+    uploadRows.forEach(function(row) {
+        var input = row.querySelector('input[type="file"]');
+        var thumb = row.querySelector('.upload-thumb');
+        var nameEl = row.querySelector('.upload-name');
+        var sizeEl = row.querySelector('.upload-size');
+
+        function clearRow() {
+            input.value = '';
+            row.className = 'upload-row';
+            thumb.removeAttribute('src');
+            nameEl.textContent = 'none yet';
+            sizeEl.textContent = '';
+            refreshMeter();
+        }
+
+        input.addEventListener('change', function() {
+            var file = input.files[0];
+            if (!file) return clearRow();
+            row.className = 'upload-row has-file busy';
+            nameEl.textContent = file.name;
+            sizeEl.textContent = 'checking\u2026';
+            shrinkImage(file).then(function(out) {
+                if (out !== file && !setInputFile(input, out)) out = file;  // fallback: keep original
+                nameEl.textContent = out.name;
+                try { thumb.src = URL.createObjectURL(out); } catch (e) {}
+                var ok = out.size <= LIMIT_TOTAL;
+                row.className = 'upload-row has-file ' + (ok ? 'ok' : 'bad');
+                sizeEl.textContent = (ok ? '\u2713 ' : '\u2715 ') + mb(out.size) + (ok ? '' : ' \u00b7 crop it');
+                refreshMeter();
+            });
+        });
+
+        row.querySelector('.upload-clear').addEventListener('click', clearRow);
+    });
+    refreshMeter();
 
     // Auto-format phone as 907-000-0000
     document.getElementById('cell').addEventListener('input', function() {
@@ -514,12 +801,20 @@
     checkStyles();
 
     // Prevent double-submission (disable button + show feedback)
-    document.querySelector('form[name="tattoo-consultation"]').addEventListener('submit', function() {
+    document.querySelector('form[name="tattoo-consultation"]').addEventListener('submit', function(e) {
+        if (!document.getElementById('artist-field').value) { e.preventDefault(); pickWrap.scrollIntoView(); return; }
+        if (document.getElementById('upload-warn').classList.contains('show') ||
+            document.querySelector('.upload-row.busy')) {
+            e.preventDefault();
+            document.getElementById('upload-warn').scrollIntoView({ block: 'center' });
+            return;
+        }
         document.getElementById('combined-name').value =
             (document.getElementById('first-name').value.trim() + ' ' +
              document.getElementById('last-name').value.trim()).trim();
         var btn = this.querySelector('.btn-submit');
         if (btn) {
+            btn.dataset.sending = '1';
             btn.disabled = true;
             btn.textContent = 'Sending...';
             btn.style.opacity = '0.6';
