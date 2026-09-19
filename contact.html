@@ -641,6 +641,7 @@
             <!-- Submit -->
             <div class="submit-wrap">
                 <button type="submit" class="btn-submit">Send It</button>
+                <p class="upload-warn" id="send-warn" style="margin-top:14px;"></p>
             </div>
             <p class="form-note">Kevin typically responds within 24–48 hours. Walk-ins always welcome.</p>
 
@@ -800,19 +801,24 @@
     styleBoxes.forEach(function(b) { b.addEventListener('change', checkStyles); });
     checkStyles();
 
-    // Prevent double-submission (disable button + show feedback)
+    // Send in the background, then load success.html as a normal page.
+    // A native POST made the thank-you page re-send the whole form on every reload / tab restore.
     document.querySelector('form[name="tattoo-consultation"]').addEventListener('submit', function(e) {
-        if (!document.getElementById('artist-field').value) { e.preventDefault(); pickWrap.scrollIntoView(); return; }
+        e.preventDefault();
+        var btn = this.querySelector('.btn-submit');
+        if (btn && btn.dataset.sending) return;
+        if (!document.getElementById('artist-field').value) { pickWrap.scrollIntoView(); return; }
         if (document.getElementById('upload-warn').classList.contains('show') ||
             document.querySelector('.upload-row.busy')) {
-            e.preventDefault();
             document.getElementById('upload-warn').scrollIntoView({ block: 'center' });
             return;
         }
         document.getElementById('combined-name').value =
             (document.getElementById('first-name').value.trim() + ' ' +
              document.getElementById('last-name').value.trim()).trim();
-        var btn = this.querySelector('.btn-submit');
+        var sendWarn = document.getElementById('send-warn');
+        sendWarn.classList.remove('show');
+        var data = new FormData(this);
         if (btn) {
             btn.dataset.sending = '1';
             btn.disabled = true;
@@ -820,6 +826,20 @@
             btn.style.opacity = '0.6';
             btn.style.cursor = 'not-allowed';
         }
+        fetch('/', { method: 'POST', body: data }).then(function(res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            window.location.replace('/success.html');
+        }).catch(function() {
+            if (btn) {
+                delete btn.dataset.sending;
+                btn.textContent = 'Send It';
+                btn.style.opacity = '';
+                btn.style.cursor = '';
+            }
+            refreshMeter();
+            sendWarn.textContent = 'That did not send. Check your connection and tap Send It again, or call (907) 365-9410.';
+            sendWarn.classList.add('show');
+        });
     });
 
     // Show success message after form submission
