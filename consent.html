@@ -67,6 +67,8 @@
   .clause.missing .box { border-color: var(--accent); }
   .toggle-row.missing { border-color: var(--accent); }
   .sigwrap.missing { border-color: var(--accent); }
+  #intlBtn { padding: 6px 14px; font-size: 13px; font-weight: 700; letter-spacing: 1px; border: 2px solid #1e6fd9; border-radius: 6px; background: #1e6fd9; color: #fff; }
+  #intlBtn.on { border-color: #fff; }
   #idBtn.missing-btn { border-color: var(--accent) !important; color: var(--accent) !important; }
   .toggle-row {
     display: flex; align-items: center; justify-content: space-between;
@@ -121,6 +123,7 @@
   <p style="margin-top:6px; font-weight:600; color:var(--ink);">Consent to Tattoo Procedure / Release and Waiver of All Claims</p>
 </header>
 
+<div style="text-align:right; margin:8px 0 -6px;"><button type="button" id="intlBtn">INT'L</button></div>
 <h2>Client ID</h2>
 <div>
   <button type="button" id="idBtn" style="width:100%; padding:14px; font-size:16px; font-weight:600; border:1.5px dashed #666; border-radius:8px; background:var(--panel); color:var(--ink);">&#128247; TAP TO PHOTOGRAPH ID</button>
@@ -140,14 +143,15 @@
     </div>
   </div>
   <div><label>Age</label><input type="text" id="age" readonly placeholder="auto"></div>
-  <div><label>Cell Phone *</label><input type="tel" id="phone" autocomplete="off"></div>
+  <div><label id="phoneLabel">Cell Phone *</label><input type="tel" id="phone" autocomplete="off"></div>
   <div><label>Email *</label><input type="email" id="email" autocomplete="off"></div>
   <div class="full"><label>Street Address *</label><input type="text" id="address" autocomplete="off"></div>
   <div><label>City *</label><input type="text" id="city" autocomplete="off"></div>
-  <div style="display:grid; grid-template-columns: 1fr 1.4fr; gap:10px;">
-    <div><label>State *</label><select id="state"></select></div>
-    <div><label>Zip *</label><input type="text" id="zip" autocomplete="off"></div>
+  <div id="stateZipWrap" style="display:grid; grid-template-columns: 1fr 1.4fr; gap:10px; align-items:end;">
+    <div><label id="stateLabel">State *</label><select id="state"></select><input type="text" id="region" autocomplete="off" style="display:none;"></div>
+    <div><label id="zipLabel">Zip *</label><input type="text" id="zip" autocomplete="off"></div>
   </div>
+  <div class="full" id="countryWrap" style="display:none;"><label>Country *</label><input type="text" id="country" autocomplete="off"></div>
 </div>
 
 <h2>Tattoo</h2>
@@ -359,12 +363,41 @@
 
   // ---------- phone auto-format 555-555-5555 ----------
   const phoneEl = document.getElementById('phone');
+  let intl = false;
   phoneEl.addEventListener('input', function () {
+    if (intl) {   // international: leading + and country code, no US formatting
+      let t = this.value.replace(/[^\d +\-]/g, '');
+      t = (t.charAt(0) === '+' ? '+' : '') + t.replace(/\+/g, '');
+      let n = 0, out = '';
+      for (const ch of t) { if (/\d/.test(ch) && ++n > 15) break; out += ch; }
+      this.value = out;
+      return;
+    }
     const d = this.value.replace(/\D/g, '').slice(0, 10);
     this.value = d.length > 6 ? d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6)
                : d.length > 3 ? d.slice(0, 3) + '-' + d.slice(3)
                : d;
   });
+
+  // ---------- INT'L button: + phone, typed province, country, postal code ----------
+  const intlBtn = document.getElementById('intlBtn');
+  function setIntl(on) {
+    intl = on;
+    intlBtn.className = on ? 'on' : '';
+    intlBtn.textContent = on ? "INT'L \u2713" : "INT'L";
+    document.getElementById('phoneLabel').textContent = on ? 'Cell Phone * (+ country code)' : 'Cell Phone *';
+    phoneEl.placeholder = on ? '+31 6 12345678' : '';
+    phoneEl.value = '';
+    phoneEl.classList.remove('invalid');
+    document.getElementById('stateLabel').textContent = on ? 'Province' : 'State *';
+    document.getElementById('stateZipWrap').style.gridTemplateColumns = on ? '1.4fr 1fr' : '1fr 1.4fr';
+    stateSel.style.display = on ? 'none' : '';
+    document.getElementById('region').style.display = on ? '' : 'none';
+    document.getElementById('zipLabel').textContent = on ? 'Postcode *' : 'Zip *';
+    document.getElementById('countryWrap').style.display = on ? '' : 'none';
+    if (!on) { document.getElementById('region').value = ''; document.getElementById('country').value = ''; }
+  }
+  intlBtn.onclick = () => setIntl(!intl);
 
   // ---------- ID capture ----------
   let idData = null, idW = 0, idH = 0;
@@ -519,9 +552,10 @@
   const required = ['firstName', 'lastName', 'phone', 'email', 'address', 'city', 'state', 'zip', 'bodyPart', 'description'];
   function validate() {
     const problems = [];
-    required.forEach(id => {
+    required.map(id => (intl && id === 'state') ? 'country' : id).forEach(id => {
       const el = document.getElementById(id);
-      const bad = !el.value.trim();
+      let bad = !el.value.trim();
+      if (intl && id === 'phone') bad = !/^\+/.test(el.value.trim()) || el.value.replace(/\D/g, '').length < 8;
       el.classList.toggle('invalid', bad);
       if (bad) problems.push(el);
     });
@@ -604,7 +638,8 @@
     sect('CLIENT INFORMATION');
     line('Name: ' + v('firstName') + ' ' + v('lastName') + '        DOB: ' + dobStr() + '        Age: ' + v('age'), 9, 'normal', 12.5);
     line('Phone: ' + v('phone') + '        Email: ' + v('email'), 9, 'normal', 12.5);
-    line('Address: ' + v('address') + ', ' + v('city') + ', ' + v('state') + ' ' + v('zip'), 9, 'normal', 12.5);
+    line('Address: ' + v('address') + ', ' + v('city') + ', ' +
+         (intl ? (v('region') ? v('region') + ' ' : '') + v('zip') + ', ' + v('country') : v('state') + ' ' + v('zip')), 9, 'normal', 12.5);
 
     sect('TATTOO');
     line('Session Date: ' + v('sessionDate') + '        Body Part: ' + v('bodyPart') + '        Artist: Kevin Harden', 9, 'normal', 12.5);
@@ -664,7 +699,7 @@
       updateVaultCount();
     } catch (e) {}
 
-    if (mailList === 'YES' && v('email')) mlAdd(v('email'), v('firstName') + ' ' + v('lastName'), v('city'), v('state'));
+    if (mailList === 'YES' && v('email')) mlAdd(v('email'), v('firstName') + ' ' + v('lastName'), v('city'), intl ? v('country') : v('state'));
 
     // iPad/iPhone: hand the PDF to the SaveConsent shortcut via clipboard; everything else: direct download
     const isAppleTouch = /iPad|iPhone/.test(navigator.userAgent) || (/Mac/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
