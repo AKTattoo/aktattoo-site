@@ -65,7 +65,10 @@
         gtag('js', new Date());
         gtag('config', 'G-T7ZQGRQ9VS');
         gtag('config', 'AW-18060019048');
-        gtag('event', 'conversion', { 'event_category': 'contact', 'event_label': 'consultation_form_submit' });
+        // Count a booking once, only when contact.html just sent one — not on reloads, restored tabs, or direct visits.
+        var sent = false;
+        try { sent = sessionStorage.getItem('bookingSent') === '1'; sessionStorage.removeItem('bookingSent'); } catch (e) {}
+        if (sent) gtag('event', 'booking_sent');
     </script>
 </head>
 <body>

@@ -833,6 +833,7 @@
         }
         fetch('/', { method: 'POST', body: data }).then(function(res) {
             if (!res.ok) throw new Error('HTTP ' + res.status);
+            try { sessionStorage.setItem('bookingSent', '1'); } catch (e) {}
             window.location.replace('/success.html');
         }).catch(function() {
             if (btn) {
