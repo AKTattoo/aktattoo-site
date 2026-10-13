@@ -844,6 +844,8 @@
         gtag('js', new Date());
         gtag('config', 'G-T7ZQGRQ9VS');
         gtag('config', 'AW-18060019048');
+        // Remember a Google Ad click (auto-tagged URL) so the booking form can say so.
+        try { if (/[?&](gclid|gbraid|wbraid)=/.test(location.search)) localStorage.setItem('adClick', Date.now()); } catch (e) {}
         document.addEventListener('click', function(e) {
             var a = e.target.closest && e.target.closest('a[href^="tel:"]');
             if (!a) return;
